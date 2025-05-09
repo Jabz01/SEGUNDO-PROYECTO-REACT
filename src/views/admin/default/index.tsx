@@ -13,11 +13,15 @@ import DailyTraffic from "views/admin/default/components/DailyTraffic";
 import TaskCard from "views/admin/default/components/TaskCard";
 import tableDataCheck from "./variables/tableDataCheck";
 import tableDataComplex from "./variables/tableDataComplex";
+import { AuthContext, useAuth } from "context/AuthProvider";
+import { useContext } from "react";
 
 const Dashboard = () => {
+  const { user, isLoggedIn } = useAuth();
+
   return (
     <div>
-      Un dashboard normal
+      Un dashboard normal {isLoggedIn ? "si": "no"}
     </div>
   );
 };
