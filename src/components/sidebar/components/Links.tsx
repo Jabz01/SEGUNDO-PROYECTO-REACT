@@ -16,7 +16,7 @@ export const SidebarLinks = (props: { routes: RoutesType[] }): JSX.Element => {
   };
 
   const createLinks = (routes: RoutesType[]) => {
-    return routes.map((route, index) => {
+    return routes.filter(route => !route.sidebarUnlisted).map((route, index) => {
       if (
         route.layout === "/admin" ||
         route.layout === "/auth" ||

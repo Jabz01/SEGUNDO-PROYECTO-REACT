@@ -1,7 +1,9 @@
 import axios, {Axios} from "axios";
 import { Order } from "models/Order";
 
-const API_URL = import.meta.env.VITE_API_URL + "/orders" || "";
+import env from "env/env";
+
+const API_URL = env.VITE_API_URL + "/orders";
 
 class OrderService{
     
