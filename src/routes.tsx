@@ -17,7 +17,8 @@ import {
   MdPerson,
   MdLock,
 } from "react-icons/md";
-import Orders from "views/admin/orders";
+import Orders from "views/admin/orders/listOrder";
+import App from "views/admin/orders/createOrder";
 
 const routes = [
   {
@@ -33,6 +34,14 @@ const routes = [
     path: "orders",
     icon: <MdHome className="h-6 w-6" />,
     component: <Orders />,
+  },
+  {
+    name: "Create Orders",
+    layout: "/admin",
+    path: "orders/create",
+    icon: <MdHome className="h-6 w-6" />,
+    component: <App />,
+    sidebarUnlisted: true
   },
   {
     name: "Profile",
