@@ -1,4 +1,6 @@
 import React, { createContext, useState, ReactNode, useEffect, useContext } from "react";
+import { auth } from "../firebase.js";  
+import { signInWithPopup, GithubAuthProvider } from "firebase/auth";  
 
 // Definimos la interfaz del usuario
 interface User {
@@ -65,47 +67,58 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     checkAuth();
   }, []);
 
-  // Función para iniciar sesión con un proveedor OAuth
-  const login = async (data: any, provider?: string): Promise<void> => {
-    setIsLoading(true);
-    setError(null);
-    
-    try {
-      // Aquí la lógica de OAuth según el proveedor
+const loginWithGithub = async () => {
+  try {
+    const provider = new GithubAuthProvider();
+    const result = await signInWithPopup(auth, provider);
 
-      console.log("Logeandose in con: ", data, provider);
-      
-      
-      // Simular una respuesta de OAuth
-      const mockOAuthResponse = {
-        // Esto es el equivalente a recibir un token de jwt desde el server, una pila de letras raras
-        token: "mock-token-" + Date.now(), // Simulamos un token único
-        // Estos son los datos decodificados del token
-        user: {
-          id: "12345",
-          name: "Juan Pérez",
-          email: "juan@example.com",
-          picture: "https://example.com/profile.jpg"
-        }
-      };
-      
-      // Almacenar los datos en localStorage
-      localStorage.setItem('authToken', mockOAuthResponse.token);
-      localStorage.setItem('authUser', JSON.stringify(mockOAuthResponse.user));
-      
-      // Actualizar el estado
-      setToken(mockOAuthResponse.token);
-      setUser(mockOAuthResponse.user);
-      setIsLoggedIn(true);
-      
-    } catch (error) {
-      console.error('Error en login:', error);
-      setError('Error al iniciar sesión con ' + provider);
-    } finally {
-      setIsLoading(false);
+    const credential = GithubAuthProvider.credentialFromResult(result);
+    const token = credential?.accessToken; // 🔹 Token correcto
+
+    const user = result.user;
+
+    if (token) {
+      localStorage.setItem("authToken", token);
     }
-  };
+    localStorage.setItem("authUser", JSON.stringify({
+      id: user.uid,
+      name: user.displayName!,
+      email: user.email!
+    }));
 
+    setToken(token || null);
+    setUser({ id: user.uid, name: user.displayName!, email: user.email! });
+    setIsLoggedIn(true);
+  } catch (error) {
+    console.error("Error en login con GitHub:", error);
+    setError("Error al iniciar sesión con GitHub");
+  }
+};
+
+
+
+  // Función para iniciar sesión con un proveedor OAuth
+const login = async (_data: any, provider?: string): Promise<void> => {
+  setIsLoading(true);
+  setError(null);
+
+  try {
+
+    //Para Github
+    if (provider === "github") {
+      await loginWithGithub();
+    }
+
+    // if (provider === "google")
+    // if (provider === "azure") 
+
+  } catch (error) {
+    console.error(`Error en login con ${provider}:`, error);
+    setError(`Error al iniciar sesión con ${provider}`);
+  } finally {
+    setIsLoading(false);
+  }
+};
   // Función para cerrar sesión
   const logout = () => {
     // Limpiar estado
