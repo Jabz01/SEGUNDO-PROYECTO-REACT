@@ -19,6 +19,7 @@ import {
 } from "react-icons/md";
 import Orders from "views/admin/orders/listOrder";
 import App from "views/admin/orders/createOrder";
+import UpdateOrder from "views/admin/orders/uptadeOrder";
 
 const routes = [
   {
@@ -41,6 +42,14 @@ const routes = [
     path: "orders/create",
     icon: <MdHome className="h-6 w-6" />,
     component: <App />,
+    sidebarUnlisted: true
+  },
+    {
+    name: "Edit Orders",
+    layout: "/admin",
+    path: "orders/edit/:order_id",
+    icon: <MdHome className="h-6 w-6" />,
+    component: <UpdateOrder />,
     sidebarUnlisted: true
   },
   {

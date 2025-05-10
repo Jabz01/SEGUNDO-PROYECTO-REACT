@@ -29,8 +29,8 @@ const ListOrders = () => {
   }
 
   const handleEdit = (id: number) => {
-    console.log(`Editar registro con ID: ${id}`);
-    navigate("update/:id")
+    console.log(`Editar pedido con ID: ${id}`);
+    navigate(`/admin/orders/update/${id}`)
   };
 
   const handleDelete = async (order_id: number) => {
@@ -50,7 +50,7 @@ const ListOrders = () => {
         if (success) {
           Swal.fire({
             title: "Eliminado",
-            text: "El registro se ha eliminado",
+            text: "El pedido se ha eliminado",
             icon: "success"
           });
         }
