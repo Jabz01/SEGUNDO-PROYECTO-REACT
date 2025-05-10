@@ -22,7 +22,7 @@ const App = () => {
                     timer: 3000
                 })
                 console.log("Usuario creado con éxito:", createdOrder);
-                navigate("orders");
+                navigate("/admin/orders");
             } else {
                 Swal.fire({
                     title: "Error",

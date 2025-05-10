@@ -27,7 +27,7 @@ const UpdateOrder = () => {
 
     const handleUpdateOrder = async (theOrder: Order) => {
         try {
-            const updatedUser = await orderService.updateOrder(theOrder.order_id || 0, theOrder);
+            const updatedUser = await orderService.updateOrder(theOrder.id || 0, theOrder);
             if (updatedUser) {
                 Swal.fire({
                     title: "Completado",
@@ -35,7 +35,7 @@ const UpdateOrder = () => {
                     icon: "success",
                     timer: 3000
                 });
-                navigate("orders"); // Redirección en React Router
+                navigate("/admin/orders"); // Redirección en React Router
             } else {
                 Swal.fire({
                     title: "Error",

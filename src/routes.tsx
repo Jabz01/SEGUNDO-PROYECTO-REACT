@@ -47,7 +47,7 @@ const routes = [
     {
     name: "Edit Orders",
     layout: "/admin",
-    path: "orders/edit/:order_id",
+    path: "orders/update/:id",
     icon: <MdHome className="h-6 w-6" />,
     component: <UpdateOrder />,
     sidebarUnlisted: true

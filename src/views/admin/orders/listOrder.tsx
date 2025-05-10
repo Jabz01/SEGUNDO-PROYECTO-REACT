@@ -28,9 +28,9 @@ const ListOrders = () => {
     navigate("create")
   }
 
-  const handleEdit = (id: number) => {
-    console.log(`Editar pedido con ID: ${id}`);
-    navigate(`/admin/orders/update/${id}`)
+  const handleEdit = (order_id: number) => {
+    console.log(`Editar pedido con ID: ${order_id}`);
+    navigate(`/admin/orders/update/${order_id}`)
   };
 
   const handleDelete = async (order_id: number) => {
@@ -78,6 +78,7 @@ const ListOrders = () => {
                     <th scope="col" className="px-6 py-3">ID orden</th>
                     <th scope="col" className="px-6 py-3">ID menu</th>
                     <th scope="col" className="px-6 py-3">ID motocicleta</th>
+                    <th scope="col" className="px-6 py-3">ID cliente</th>
                     <th scope="col" className="px-6 py-3">Cantidad</th>
                     <th scope="col" className="px-6 py-3">Precio Total</th>
                     <th scope="col" className="px-6 py-3">Estatus</th>
@@ -85,28 +86,29 @@ const ListOrders = () => {
                 </thead>
                 <tbody>
                   {data.map((item) => (
-                    <tr key={item.order_id} className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700 border-gray-200">
-                      <td className="px-6 py-4 font-medium text-gray-900 dark:text-white">{item.customer_id}</td>
-                      <td className="px-6 py-4">{item.menu_id}</td>
+                    <tr key={item.id} className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700 border-gray-200">
+                      <td className="px-6 py-4 font-medium text-gray-900 dark:text-white">{item.id}</td>
+                      <td className="px-6 py-4 font-medium text-gray-900 dark:text-white">{item.menu_id}</td>
                       <td className="px-6 py-4">{item.motorcycle_id}</td>
+                      <td className="px-6 py-4">{item.customer_id }</td>
                       <td className="px-6 py-4">{item.quantity}</td>
                       <td className="px-6 py-4">{item.total_price}</td>
                       <td className="px-6 py-4">{item.status}</td>
                       <td className="px-6 py-4 space-x-2">
                         <button
-                          onClick={() => handleView(item.order_id ? item.order_id : 0)}
+                          onClick={() => handleView(item.id ? item.id : 0)}
                           className="text-blue-600 dark:text-blue-500"
                         >
                           <Eye size={20} /> {/* Ícono de ver */}
                         </button>
                         <button
-                          onClick={() => item.order_id !== undefined && handleEdit(item.order_id)}
+                          onClick={() => item.id !== undefined && handleEdit(item.id)}
                           className="text-yellow-600 dark:text-yellow-500"
                         >
                           <Edit size={20} /> {/* Ícono de editar */}
                         </button>
                         <button
-                          onClick={() => item.order_id !== undefined && handleDelete(item.order_id)}
+                          onClick={() => item.id !== undefined && handleDelete(item.id)}
                           className="text-red-600 dark:text-red-500"
                         >
                           <Trash2 size={20} /> {/* Ícono de eliminar */}

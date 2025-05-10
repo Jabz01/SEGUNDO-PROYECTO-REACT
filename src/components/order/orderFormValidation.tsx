@@ -10,6 +10,8 @@ interface OrderFormProps {
 }
 
 const OrderFormValidator: React.FC<OrderFormProps> = ({ mode, handleCreate, handleUpdate, order }) => {
+    const isDisabled = mode === 2;
+
     const handleSubmit = (formattedValues: Order) => {
         if (mode === 1 && handleCreate) {
             handleCreate(formattedValues);
@@ -52,35 +54,60 @@ const OrderFormValidator: React.FC<OrderFormProps> = ({ mode, handleCreate, hand
                     {/* customer_id */}
                     <div>
                         <label htmlFor="customer_id" className="block text-lg font-medium text-gray-700">Customer ID</label>
-                        <Field type="number" name="customer_id" className="w-full border rounded-md p-2" />
+                        <Field
+                            type="number"
+                            name="customer_id"
+                            disabled={isDisabled}
+                            className={`w-full border rounded-md p-2 ${isDisabled ? 'bg-gray-400 text-gray-700 cursor-not-allowed' : ''}`}
+                        />
                         <ErrorMessage name="customer_id" component="p" className="text-red-500 text-sm" />
                     </div>
 
                     {/* menu_id */}
                     <div>
                         <label htmlFor="menu_id" className="block text-lg font-medium text-gray-700">Menu ID</label>
-                        <Field type="number" name="menu_id" className="w-full border rounded-md p-2" />
+                        <Field
+                            type="number"
+                            name="menu_id"
+                            disabled={isDisabled}
+                            className={`w-full border rounded-md p-2 ${isDisabled ? 'bg-gray-400 text-gray-700 cursor-not-allowed' : ''}`}
+                        />
                         <ErrorMessage name="menu_id" component="p" className="text-red-500 text-sm" />
                     </div>
 
                     {/* motorcycle_id */}
                     <div>
                         <label htmlFor="motorcycle_id" className="block text-lg font-medium text-gray-700">Motorcycle ID</label>
-                        <Field type="number" name="motorcycle_id" className="w-full border rounded-md p-2" />
+                        <Field
+                            type="number"
+                            name="motorcycle_id"
+                            disabled={isDisabled}
+                            className={`w-full border rounded-md p-2 ${isDisabled ? 'bg-gray-400 text-gray-700 cursor-not-allowed' : ''}`}
+                        />
                         <ErrorMessage name="motorcycle_id" component="p" className="text-red-500 text-sm" />
                     </div>
 
                     {/* quantity */}
                     <div>
                         <label htmlFor="quantity" className="block text-lg font-medium text-gray-700">Quantity</label>
-                        <Field type="number" name="quantity" className="w-full border rounded-md p-2" />
+                        <Field
+                            type="number"
+                            name="quantity"
+                            disabled={isDisabled}
+                            className={`w-full border rounded-md p-2 ${isDisabled ? 'bg-gray-400 text-gray-700 cursor-not-allowed' : ''}`}
+                        />
                         <ErrorMessage name="quantity" component="p" className="text-red-500 text-sm" />
                     </div>
 
                     {/* total_price */}
                     <div>
                         <label htmlFor="total_price" className="block text-lg font-medium text-gray-700">Total Price</label>
-                        <Field type="number" name="total_price" className="w-full border rounded-md p-2" />
+                        <Field
+                            type="number"
+                            name="total_price"
+                            disabled={isDisabled}
+                            className={`w-full border rounded-md p-2 ${isDisabled ? 'bg-gray-400 text-gray-700 cursor-not-allowed' : ''}`}
+                        />
                         <ErrorMessage name="total_price" component="p" className="text-red-500 text-sm" />
                     </div>
 
