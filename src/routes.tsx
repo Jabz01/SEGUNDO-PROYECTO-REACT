@@ -16,12 +16,18 @@ import {
   MdBarChart,
   MdPerson,
   MdLock,
+  MdInbox,
+  MdOutlineMoped
 } from "react-icons/md";
+
+import Products from "views/admin/products/listProducts";
 import Orders from "views/admin/orders/listOrder";
+
 import App from "views/admin/orders/createOrder";
 import UpdateOrder from "views/admin/orders/uptadeOrder";
 import UpdateAddress from "views/admin/address/updateAddress";
 import CreateAddress from "views/admin/address/createAddress";
+import FormProducts from "views/admin/products/formProducts";
 
 const routes = [
   {
@@ -35,7 +41,7 @@ const routes = [
     name: "Orders",
     layout: "/admin",
     path: "orders",
-    icon: <MdHome className="h-6 w-6" />,
+    icon: <MdOutlineMoped className="h-6 w-6" />,
     component: <Orders />,
   },
   {
@@ -70,6 +76,23 @@ const routes = [
     path: "orders/address/update/:id",
     icon: <MdHome className="h-6 w-6" />,
     component: <UpdateAddress />,
+    sidebarUnlisted: true
+  },
+
+  {
+    name: "Products",
+    layout: "/admin",
+    path: "products",
+    icon: <MdInbox className="h-6 w-6" />,
+    component: <Products />,
+  },
+
+  {
+    name: "Products form",
+    layout: "/admin",
+    path: "products/form/:id?",
+    icon: <MdHome className="h-6 w-6" />,
+    component: <FormProducts />,
     sidebarUnlisted: true
   },
 

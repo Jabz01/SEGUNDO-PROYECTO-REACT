@@ -120,7 +120,7 @@ const ListOrders = () => {
               </table>
               <button
                 onClick={() => handleCreation()}
-                className="text-red-600 dark:text-red-500"
+                className={"m-2 py-2 px-4 text-white rounded-md bg-blue-500 hover:bg-blue-600"}
               >
                 <Plus size={20} /> {/* Ícono de crear */}
               </button>
