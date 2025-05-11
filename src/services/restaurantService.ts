@@ -26,7 +26,6 @@ class RestaurantService {
     }
   }
 
-  // 🔹 Usa `api` con interceptor
   async createRestaurant(restaurant: Omit<Restaurant, "id">): Promise<Restaurant | null> {
     try {
       const response = await api.post<Restaurant>(API_URL, restaurant);

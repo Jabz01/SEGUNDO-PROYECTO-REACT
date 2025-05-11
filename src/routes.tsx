@@ -19,7 +19,10 @@ import {
   MdInbox,
   MdOutlineMoped,
   MdDirectionsBike,
-  MdPedalBike
+  MdPedalBike,
+  MdRestaurant, 
+  MdAddBusiness, 
+  MdEdit
 } from "react-icons/md";
 
 import Products from "views/admin/products/listProducts";
@@ -35,6 +38,11 @@ import CreateAddress from "views/admin/address/createAddress";
 import FormProducts from "views/admin/products/formProducts";
 import FormDrivers from "views/admin/drivers/formDrivers";
 import FormMotorcycles from "views/admin/motorcycles/formMotorcycles";
+
+import RestaurantList from "views/admin/restaurants/RestaurantList";
+import RestaurantForm from "views/admin/restaurants/RestaurantForm";
+import RestaurantEdit from "views/admin/restaurants/RestaurantEdit";
+
 
 const routes = [
   {
@@ -150,6 +158,30 @@ const routes = [
     component: <SignIn />,
     sidebarUnlisted: true
   },
+  {
+    name: "Restaurantes",
+    layout: "/admin",
+    path: "restaurants",
+    icon: <MdRestaurant className="h-6 w-6" />,
+    component: <RestaurantList />,
+  },
+  {
+    name: "Create Restaurant",
+    layout: "/admin",
+    path: "restaurants/create",
+    icon: <MdAddBusiness className="h-6 w-6" />,
+    component: <RestaurantForm />,
+    sidebarUnlisted: true,
+  },
+  {
+    name: "Edit Restaurant",
+    layout: "/admin",
+    path: "restaurants/edit/:id",
+    icon: <MdEdit className="h-6 w-6" />,
+    component: <RestaurantEdit />,
+    sidebarUnlisted: true,
+  },
+
   
   // {
   //   name: "NFT Marketplace",
