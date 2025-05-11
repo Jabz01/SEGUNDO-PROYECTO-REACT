@@ -32,16 +32,18 @@ api.interceptors.request.use(
 
 // Interceptor de respuesta
 api.interceptors.response.use(
-    (response) => {
-        return response;
-    },
-    (error) => {
-        if (error.response?.status === 401) {
-            console.log("No autorizado, redirigiendo a login...");
-            window.location.href = "/login"; // Redirigir si la sesión expira
-        }
-        return Promise.reject(error);
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 401) {
+      console.log("No autorizado, redirigiendo a login...");
+      window.location.href = "/login";
+    } else if (error.response?.status === 500) {
+      console.error("Error interno del servidor:", error.message);
+    } else if (error.response?.status === 404) {
+      console.warn("Recurso no encontrado:", error.config.url);
     }
+    return Promise.reject(error);
+  }
 );
 
 export default api;
