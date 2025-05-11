@@ -2,40 +2,40 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import Swal from 'sweetalert2';
 
-import { productService } from "services/productService";
-import { Product } from "models/Product";
-import ProductFormValidator from "components/products/productFormValidation";
+import { driverService } from "services/driverService";
+import { Driver } from "models/Driver";
+import DriverFormValidator from "components/drivers/driverFormValidation";
 import { useEffect, useState } from "react";
 
-const FormProducts = () => {
+const FormDrivers = () => {
     const navigate = useNavigate();
 
-    const { id: product_id } = useParams();
+    const { id: driver_id } = useParams();
 
-    const [product, setProduct] = useState<Product | null>(null);
+    const [driver, setDriver] = useState<Driver | null>(null);
 
     useEffect(() => {
-        const fetchProduct = async () => {
-            if (!product_id) return; // Evitar errores si el ID no está disponible
-            const data = await productService.getProductByID(parseInt(product_id));
-            setProduct(data);
+        const fetchDriver = async () => {
+            if (!driver_id) return; // Evitar errores si el ID no está disponible
+            const data = await driverService.getDriverByID(parseInt(driver_id));
+            setDriver(data);
         };
 
-        fetchProduct();
-    }, [product_id]);
+        fetchDriver();
+    }, [driver_id]);
 
-    const handleCreateProduct = async (product: Product) => {
+    const handleCreateDriver = async (driver: Driver) => {
         try {
-            const createdProduct = await productService.createProduct(product);
-            if (createdProduct) {
+            const createdDriver = await driverService.createDriver(driver);
+            if (createdDriver) {
                 Swal.fire({
                     title: "Completado",
                     text: "Se ha creado correctamente el registro",
                     icon: "success",
                     timer: 3000
                 })
-                console.log("Usuario creado con éxito:", createdProduct);
-                navigate("/admin/products");
+                console.log("Usuario creado con éxito:", createdDriver);
+                navigate("/admin/drivers");
             } else {
                 Swal.fire({
                     title: "Error",
@@ -54,24 +54,24 @@ const FormProducts = () => {
         }
     };
 
-    const handleUpdateProduct = async (product: Product) => {
+    const handleUpdateDriver = async (driver: Driver) => {
         /*
         Any update needs an id, otherwise it can corrupt data or something
         */
-        if (product.id === null || product.id === undefined) {
+        if (driver.id === null || driver.id === undefined) {
             return;
         }
 
         try {
-            const updatedProduct = await productService.updateProduct(product.id, product);
-            if (updatedProduct) {
+            const updatedDriver = await driverService.updateDriver(driver.id, driver);
+            if (updatedDriver) {
                 Swal.fire({
                     title: "Completado",
                     text: "Se ha actualizado correctamente el registro",
                     icon: "success",
                     timer: 3000
                 });
-                navigate("/admin/products");
+                navigate("/admin/drivers");
             } else {
                 Swal.fire({
                     title: "Error",
@@ -90,21 +90,21 @@ const FormProducts = () => {
         }
     };
 
-    if (product_id && !product) {
+    if (driver_id && !driver) {
         return <div>Cargando...</div>; // Muestra un mensaje de carga mientras se obtienen los datos
     }
 
     return (
         <div>
             {/* Formulario para crear un nuevas ordenes */}
-            <h2>{product ? "Editar" : "Crear"} producto</h2>
-            <ProductFormValidator
-                handleCreate={handleCreateProduct}
-                handleUpdate={handleUpdateProduct}
-                product={product}
+            <h2>{driver ? "Editar" : "Crear"} driver</h2>
+            <DriverFormValidator
+                handleCreate={handleCreateDriver}
+                handleUpdate={handleUpdateDriver}
+                driver={driver}
             />
         </div>
     );
 }
 
-export default FormProducts;
+export default FormDrivers;

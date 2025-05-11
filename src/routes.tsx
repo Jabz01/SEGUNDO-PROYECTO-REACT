@@ -17,17 +17,21 @@ import {
   MdPerson,
   MdLock,
   MdInbox,
-  MdOutlineMoped
+  MdOutlineMoped,
+  MdDirectionsBike
 } from "react-icons/md";
 
 import Products from "views/admin/products/listProducts";
 import Orders from "views/admin/orders/listOrder";
+import Drivers from "views/admin/drivers/listDrivers";
 
 import App from "views/admin/orders/createOrder";
 import UpdateOrder from "views/admin/orders/uptadeOrder";
 import UpdateAddress from "views/admin/address/updateAddress";
 import CreateAddress from "views/admin/address/createAddress";
+
 import FormProducts from "views/admin/products/formProducts";
+import FormDrivers from "views/admin/drivers/formDrivers";
 
 const routes = [
   {
@@ -86,13 +90,28 @@ const routes = [
     icon: <MdInbox className="h-6 w-6" />,
     component: <Products />,
   },
-
   {
     name: "Products form",
     layout: "/admin",
     path: "products/form/:id?",
-    icon: <MdHome className="h-6 w-6" />,
+    icon: <MdInbox className="h-6 w-6" />,
     component: <FormProducts />,
+    sidebarUnlisted: true
+  },
+
+  {
+    name: "Drivers",
+    layout: "/admin",
+    path: "drivers",
+    icon: <MdDirectionsBike className="h-6 w-6" />,
+    component: <Drivers />,
+  },
+  {
+    name: "Drivers form",
+    layout: "/admin",
+    path: "drivers/form/:id?",
+    icon: <MdDirectionsBike className="h-6 w-6" />,
+    component: <FormDrivers />,
     sidebarUnlisted: true
   },
 
