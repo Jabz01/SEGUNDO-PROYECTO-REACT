@@ -18,12 +18,14 @@ import {
   MdLock,
   MdInbox,
   MdOutlineMoped,
-  MdDirectionsBike
+  MdDirectionsBike,
+  MdPedalBike
 } from "react-icons/md";
 
 import Products from "views/admin/products/listProducts";
 import Orders from "views/admin/orders/listOrder";
 import Drivers from "views/admin/drivers/listDrivers";
+import Motorcycles from "views/admin/motorcycles/listMotorcycle";
 
 import App from "views/admin/orders/createOrder";
 import UpdateOrder from "views/admin/orders/uptadeOrder";
@@ -32,6 +34,7 @@ import CreateAddress from "views/admin/address/createAddress";
 
 import FormProducts from "views/admin/products/formProducts";
 import FormDrivers from "views/admin/drivers/formDrivers";
+import FormMotorcycles from "views/admin/motorcycles/formMotorcycles";
 
 const routes = [
   {
@@ -84,7 +87,7 @@ const routes = [
   },
 
   {
-    name: "Products",
+    name: "Productos",
     layout: "/admin",
     path: "products",
     icon: <MdInbox className="h-6 w-6" />,
@@ -112,6 +115,23 @@ const routes = [
     path: "drivers/form/:id?",
     icon: <MdDirectionsBike className="h-6 w-6" />,
     component: <FormDrivers />,
+    sidebarUnlisted: true
+  },
+
+  {
+    name: "Motos",
+    layout: "/admin",
+    path: "motorcycles",
+    icon: <MdPedalBike className="h-6 w-6" />,
+    component: <Motorcycles />,
+  },
+
+  {
+    name: "Motos",
+    layout: "/admin",
+    path: "motorcycles/form/:id?",
+    icon: <MdPedalBike className="h-6 w-6" />,
+    component: <FormMotorcycles />,
     sidebarUnlisted: true
   },
 
