@@ -1,35 +1,36 @@
 import Swal from 'sweetalert2';
-import { orderService } from 'services/orderService';
 import { useNavigate } from "react-router-dom";
-import OrderFormValidator from 'components/order/orderFormValidation';
-import { Order } from 'models/Order';
+import AddressFormValidator from 'components/address/addresValidationForm';
+import { addressService } from 'services/addressService';
+import { Address } from 'models/Address';
 
-const App = () => {
+const CreateAddress = () => {
     const navigate = useNavigate();
 
     // Estado para almacenar el usuario a editar
 
     // Lógica de creación
-    const handleCreateOrder = async (order: Order) => {
+    const handleCreateAddress = async (address: Address) => {
 
         try {
-            const createdOrder = await orderService.createOrder(order);
-            if (createdOrder) {
+            const createAddress = await addressService.createAddress(address);
+            if (createAddress) {
                 Swal.fire({
                     title: "Completado",
                     text: "Se ha creado correctamente el registro",
                     icon: "success",
                     timer: 3000
                 })
-                console.log("Usuario creado con éxito:", createdOrder);
-                navigate("/admin/orders/create/address");
+                console.log("Usuario creado con éxito:", createAddress);
+                navigate("/admin/orders");
             } else {
                 Swal.fire({
                     title: "Error",
-                    text: "Existe un problema al momento de crear el registro",
+                    text: "Existe un problema al momento de registrar su dirección",
                     icon: "error",
                     timer: 3000
                 })
+                console.log("Dato enviados al backend:", createAddress);
             }
         } catch (error) {
             Swal.fire({
@@ -44,12 +45,12 @@ const App = () => {
         <div>
             {/* Formulario para crear un nuevas ordenes */}
             <h2>Create User</h2>
-            <OrderFormValidator
-                handleCreate={handleCreateOrder}
+            <AddressFormValidator
+                handleCreate={handleCreateAddress}
                 mode={1} 
             />
         </div>
     );
 };
 
-export default App;
+export default CreateAddress;

@@ -35,7 +35,7 @@ const UpdateOrder = () => {
                     icon: "success",
                     timer: 3000
                 });
-                navigate("/admin/orders"); // Redirección en React Router
+                navigate("orders/address/update/:id"); // Redirección en React Router
             } else {
                 Swal.fire({
                     title: "Error",

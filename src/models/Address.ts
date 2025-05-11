@@ -1,10 +1,12 @@
-export interface Order{
+export interface Address{
+
 
     id?: number;
-    stree?: String;
+    street?: String;
     city?:String;
     state?: String;
     postal_code?:String;
     additional_info:String;
+    order_id?:number;
 
 }

@@ -20,6 +20,8 @@ import {
 import Orders from "views/admin/orders/listOrder";
 import App from "views/admin/orders/createOrder";
 import UpdateOrder from "views/admin/orders/uptadeOrder";
+import UpdateAddress from "views/admin/address/updateAddress";
+import CreateAddress from "views/admin/address/createAddress";
 
 const routes = [
   {
@@ -44,7 +46,7 @@ const routes = [
     component: <App />,
     sidebarUnlisted: true
   },
-    {
+  {
     name: "Edit Orders",
     layout: "/admin",
     path: "orders/update/:id",
@@ -52,6 +54,25 @@ const routes = [
     component: <UpdateOrder />,
     sidebarUnlisted: true
   },
+
+  {
+    name: "Address",
+    layout: "/admin",
+    path: "orders/create/address",
+    icon: <MdHome className="h-6 w-6" />,
+    component: <CreateAddress />,
+    sidebarUnlisted: true
+  },
+
+  {
+    name: "Edit Address",
+    layout: "/admin",
+    path: "orders/address/update/:id",
+    icon: <MdHome className="h-6 w-6" />,
+    component: <UpdateAddress />,
+    sidebarUnlisted: true
+  },
+
   {
     name: "Profile",
     layout: "/admin",
