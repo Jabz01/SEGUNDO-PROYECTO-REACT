@@ -20,14 +20,7 @@ const OrderFormValidator: React.FC<OrderFormProps> = ({ mode, handleCreate, hand
                 motorcycle_id: 1,
                 quantity: 1,
                 total_price: 0,
-                status: "",
-                address: {
-                    street: "",
-                    city: "",
-                    state: "",
-                    postal_code: "",
-                    additional_info: "",
-                }
+                status: "pending",
             }}
             validationSchema={Yup.object({
                 customer_id: Yup.number().required().positive().integer(),
@@ -36,13 +29,6 @@ const OrderFormValidator: React.FC<OrderFormProps> = ({ mode, handleCreate, hand
                 quantity: Yup.number().required().positive().integer(),
                 total_price: Yup.number().required().min(0),
                 status: Yup.string().required().oneOf(["pending", "in_progress", "delivered", "cancelled"]),
-                address: Yup.object({
-                    street: Yup.string().required().max(100),
-                    city: Yup.string().required().max(50),
-                    state: Yup.string().required().max(50),
-                    postal_code: Yup.string().required().matches(/^\d{4,10}$/, "Código postal inválido"),
-                    additional_info: Yup.string().max(255),
-                })
             })}
             onSubmit={(values) => {
                 const formattedValues: Order = {
@@ -138,57 +124,6 @@ const OrderFormValidator: React.FC<OrderFormProps> = ({ mode, handleCreate, hand
                             <option value="cancelled">Cancelled</option>
                         </Field>
                         <ErrorMessage name="status" component="p" className="text-red-500 text-sm" />
-                    </div>
-
-                    {/* Address Fields */}
-                    <div>
-                        <label htmlFor="street" className="block text-lg font-medium text-gray-700">Street</label>
-                        <Field
-                            type="text"
-                            name="address.street"
-                            className="w-full border rounded-md p-2"
-                        />
-                        <ErrorMessage name="address.street" component="p" className="text-red-500 text-sm" />
-                    </div>
-
-                    <div>
-                        <label htmlFor="city" className="block text-lg font-medium text-gray-700">City</label>
-                        <Field
-                            type="text"
-                            name="address.city"
-                            className="w-full border rounded-md p-2"
-                        />
-                        <ErrorMessage name="address.city" component="p" className="text-red-500 text-sm" />
-                    </div>
-
-                    <div>
-                        <label htmlFor="state" className="block text-lg font-medium text-gray-700">State</label>
-                        <Field
-                            type="text"
-                            name="address.state"
-                            className="w-full border rounded-md p-2"
-                        />
-                        <ErrorMessage name="address.state" component="p" className="text-red-500 text-sm" />
-                    </div>
-
-                    <div>
-                        <label htmlFor="postal_code" className="block text-lg font-medium text-gray-700">Postal Code</label>
-                        <Field
-                            type="text"
-                            name="address.postal_code"
-                            className="w-full border rounded-md p-2"
-                        />
-                        <ErrorMessage name="address.postal_code" component="p" className="text-red-500 text-sm" />
-                    </div>
-
-                    <div>
-                        <label htmlFor="additional_info" className="block text-lg font-medium text-gray-700">Additional Info</label>
-                        <Field
-                            type="text"
-                            name="address.additional_info"
-                            className="w-full border rounded-md p-2"
-                        />
-                        <ErrorMessage name="address.additional_info" component="p" className="text-red-500 text-sm" />
                     </div>
 
                     <button

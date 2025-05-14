@@ -34,6 +34,7 @@ import UpdateOrder from "views/admin/orders/uptadeOrder";
 import FormProducts from "views/admin/products/formProducts";
 import FormDrivers from "views/admin/drivers/formDrivers";
 import FormMotorcycles from "views/admin/motorcycles/formMotorcycles";
+import CreateAddress from "views/admin/address/createAddress";
 
 const routes = [
   {
@@ -64,6 +65,15 @@ const routes = [
     path: "orders/update/:id",
     icon: <MdHome className="h-6 w-6" />,
     component: <UpdateOrder />,
+    sidebarUnlisted: true
+  },
+
+  {
+    name: "Create Address",
+    layout: "/admin",
+    path: "orders/create/address/:order_id",
+    icon: <MdHome className="h-6 w-6" />,
+    component: <CreateAddress />,
     sidebarUnlisted: true
   },
 
