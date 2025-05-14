@@ -10,7 +10,7 @@ const App = () => {
     // Lógica de creación
     const handleCreateOrder = async (order: Order) => {
         try {
-            const createdOrder = await orderService.createOrder(order);
+            const createdOrder: any = await orderService.createOrder(order);
 
             if (createdOrder) {
                 Swal.fire({
@@ -21,7 +21,7 @@ const App = () => {
                 });
 
                 console.log("Orden creada con éxito:", createdOrder);
-                navigate(`/admin/orders/create/address/${createdOrder.id}`);
+                navigate(`/admin/orders/create/address/${createdOrder[0].id}`);
             } else {
                 Swal.fire({
                     title: "Error",
