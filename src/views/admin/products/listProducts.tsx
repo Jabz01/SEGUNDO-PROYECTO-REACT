@@ -17,6 +17,7 @@ const ListOrders = () => {
   const fetchData = async () => {
     const orders = await productService.getProducts()
     setData(orders);
+    
   };
 
   const handleCreation = () =>{
