@@ -13,6 +13,8 @@ import {
 import avatar from "assets/img/avatars/avatar4.png";
 import { useAuth } from "context/AuthProvider";
 
+const user = JSON.parse(localStorage.getItem("user") || "{}");
+
 const Navbar = (props: {
   onOpenSidenav: () => void;
   brandText: string;
@@ -139,50 +141,40 @@ const Navbar = (props: {
             <RiMoonFill className="h-4 w-4 text-gray-600 dark:text-white" />
           )}
         </div>
-        {/* Profile & Dropdown */}
-        <Dropdown
-          button={
-            <img
-              className="h-10 w-10 rounded-full"
-              src={avatar}
-              alt="Elon Musk"
-            />
-          }
-          children={
-            <div className="flex h-48 w-56 flex-col justify-start rounded-[20px] bg-white bg-cover bg-no-repeat shadow-xl shadow-shadow-500 dark:!bg-navy-700 dark:text-white dark:shadow-none">
-              <div className="mt-3 ml-4">
-                <div className="flex items-center gap-2">
-                  <p className="text-sm font-bold text-navy-700 dark:text-white">
-                    👋 Hey, Adela
-                  </p>{" "}
-                </div>
-              </div>
-              <div className="mt-3 h-px w-full bg-gray-200 dark:bg-white/20 " />
-
-              <div className="mt-3 ml-4 flex flex-col">
-                <a
-                  href=" "
-                  className="text-sm text-gray-800 dark:text-white hover:dark:text-white"
-                >
-                  Profile Settings
-                </a>
-                <a
-                  href=" "
-                  className="mt-3 text-sm text-gray-800 dark:text-white hover:dark:text-white"
-                >
-                  Newsletter Settings
-                </a>
-                <button
-                  onClick={() => logout()}
-                  className="mt-3 text-sm font-medium text-red-500 hover:text-red-500 text-left"
-                >
-                  Log Out
-                </button>
-              </div>
-            </div>
-          }
-          classNames={"py-2 top-8 -left-[180px] w-max"}
-        />
+{/* Profile & Dropdown */}
+<Dropdown
+  button={
+    <img
+      className="h-10 w-10 rounded-full"
+      src={user?.avatar || "/images/default-avatar.png"} 
+      alt={user?.name || "Usuario"}
+    />
+  }
+  children={
+    <div className="flex h-40 w-56 flex-col justify-start rounded-[20px] bg-white bg-cover bg-no-repeat shadow-xl dark:!bg-navy-700 dark:text-white dark:shadow-none">
+      <div className="mt-3 ml-4">
+        <div className="flex items-center gap-2">
+          <p className="text-sm font-bold text-navy-700 dark:text-white">
+            👋 Hola, {user?.name || "Invitado"}
+          </p>
+        </div>
+      </div>
+      <div className="mt-3 h-px w-full bg-gray-200 dark:bg-white/20 " />
+      <div className="mt-3 ml-4 flex flex-col">
+        <a href=" " className="text-sm text-gray-800 dark:text-white hover:dark:text-white">
+          Profile Settings
+        </a>
+        <button
+          onClick={logout} 
+          className="mt-3 text-sm font-medium text-red-500 hover:text-red-500 text-left"
+        >
+          Cerrar Sesión
+        </button>
+      </div>
+    </div>
+  }
+  classNames={"py-2 top-8 -left-[180px] w-max"}
+/>
       </div>
     </nav>
   );

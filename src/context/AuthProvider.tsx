@@ -7,6 +7,8 @@ interface User {
   id: string,
   name: string;
   email: string;
+  token?: string;
+  avatar?: string;
   phone?: string;
   license_number?: string;
   status?: string;
@@ -45,11 +47,9 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     const checkAuth = () => {
       try {
         // Intentar recuperar datos de sesión del localStorage
-        const storedToken = localStorage.getItem('authToken');
-        const storedUser = localStorage.getItem('authUser');
+        const storedUser = localStorage.getItem('user');
         
-        if (storedToken && storedUser) {
-          setToken(storedToken);
+        if (storedUser) {
           setUser(JSON.parse(storedUser));
           setIsLoggedIn(true);
         }
@@ -58,7 +58,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         setError('Error al verificar la autenticación');
         // Si hay error, limpiamos todo por seguridad
         localStorage.removeItem('authToken');
-        localStorage.removeItem('authUser');
+        localStorage.removeItem('user');
       } finally {
         setIsLoading(false);
       }
@@ -71,30 +71,34 @@ const loginWithGithub = async () => {
   try {
     const provider = new GithubAuthProvider();
     const result = await signInWithPopup(auth, provider);
-
     const credential = GithubAuthProvider.credentialFromResult(result);
-    const token = credential?.accessToken; // 🔹 Token correcto
-
+    const token = credential?.accessToken;
     const user = result.user;
 
-    if (token) {
-      localStorage.setItem("authToken", token);
-    }
-    localStorage.setItem("authUser", JSON.stringify({
-      id: user.uid,
-      name: user.displayName!,
-      email: user.email!
-    }));
+    if (user && token) {
+      localStorage.setItem("user", JSON.stringify({
+        id: user.uid,
+        name: user.displayName || "Usuario GitHub",
+        email: user.email!,
+        avatar: user.photoURL || "URL_DE_AVATAR_POR_DEFECTO",
+        token: token, 
+      }));
 
-    setToken(token || null);
-    setUser({ id: user.uid, name: user.displayName!, email: user.email! });
-    setIsLoggedIn(true);
-  } catch (error) {
-    console.error("Error en login con GitHub:", error);
+      setToken(token);
+      setUser({ 
+        id: user.uid, 
+        name: user.displayName || "Usuario GitHub", 
+        email: user.email!, 
+        avatar: user.photoURL || "URL_DE_AVATAR_POR_DEFECTO", 
+        token 
+      });
+      setIsLoggedIn(true);
+    }
+  } catch (error: any) {
+    console.error("Error en login con GitHub:", error.message);
     setError("Error al iniciar sesión con GitHub");
   }
 };
-
 
 
   // Función para iniciar sesión con un proveedor OAuth
@@ -128,7 +132,7 @@ const login = async (_data: any, provider?: string): Promise<void> => {
     
     // Eliminar datos del localStorage
     localStorage.removeItem('authToken');
-    localStorage.removeItem('authUser');
+    localStorage.removeItem('user');
   };
 
   return (
