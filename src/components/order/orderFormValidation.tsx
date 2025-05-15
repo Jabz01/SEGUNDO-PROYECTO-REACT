@@ -3,7 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
 interface OrderFormProps {
-    mode: number; 
+    mode: number;
     handleCreate?: (values: Order) => void;
     handleUpdate?: (values: Order) => void;
     order?: Order | null;
@@ -12,33 +12,23 @@ interface OrderFormProps {
 const OrderFormValidator: React.FC<OrderFormProps> = ({ mode, handleCreate, handleUpdate, order }) => {
     const isDisabled = mode === 2;
 
-    const handleSubmit = (formattedValues: Order) => {
-        if (mode === 1 && handleCreate) {
-            handleCreate(formattedValues);
-        } else if (mode === 2 && handleUpdate) {
-            handleUpdate(formattedValues);
-        } else {
-            console.error("No function provided for the current mode");
-        }
-    };
-
     return (
         <Formik
             initialValues={order ?? {
-                customer_id: undefined,
-                menu_id: undefined,
-                motorcycle_id: undefined,
+                customer_id: 1,
+                menu_id: 1,
+                motorcycle_id: 1,
                 quantity: 1,
                 total_price: 0,
-                status: "",
+                status: "pending",
             }}
             validationSchema={Yup.object({
-                customer_id: Yup.number().required("El ID del cliente es obligatorio").positive().integer(),
-                menu_id: Yup.number().required("El ID del menú es obligatorio").positive().integer(),
-                motorcycle_id: Yup.number().required("El ID de la moto es obligatorio").positive().integer(),
-                quantity: Yup.number().required("La cantidad es obligatoria").positive().integer(),
-                total_price: Yup.number().required("El precio total es obligatorio").min(0, "No puede ser negativo"),
-                status: Yup.string().required("El estado es obligatorio"),
+                customer_id: Yup.number().required().positive().integer(),
+                menu_id: Yup.number().required().positive().integer(),
+                motorcycle_id: Yup.number().required().positive().integer(),
+                quantity: Yup.number().required().positive().integer(),
+                total_price: Yup.number().required().min(0),
+                status: Yup.string().required().oneOf(["pending", "in_progress", "delivered", "cancelled"]),
             })}
             onSubmit={(values) => {
                 const formattedValues: Order = {
@@ -46,7 +36,15 @@ const OrderFormValidator: React.FC<OrderFormProps> = ({ mode, handleCreate, hand
                     quantity: Number(values.quantity),
                     total_price: Number(values.total_price),
                 };
-                handleSubmit(formattedValues);
+
+                // No se asigna order_id aún; se hará después de crear la orden
+                if (mode === 1 && handleCreate) {
+                    handleCreate(formattedValues);
+                } else if (mode === 2 && handleUpdate) {
+                    handleUpdate(formattedValues);
+                } else {
+                    console.error("No function provided for the current mode");
+                }
             }}
         >
             {({ handleSubmit }) => (
@@ -114,8 +112,12 @@ const OrderFormValidator: React.FC<OrderFormProps> = ({ mode, handleCreate, hand
                     {/* status */}
                     <div>
                         <label htmlFor="status" className="block text-lg font-medium text-gray-700">Status</label>
-                        <Field as="select" name="status" className="w-full border rounded-md p-2">
-                            <option value="">Seleccione un estado</option>
+                        <Field
+                            as="select"
+                            name="status"
+                            disabled={isDisabled}
+                            className={`w-full border rounded-md p-2 ${isDisabled ? 'bg-gray-400 text-gray-700 cursor-not-allowed' : ''}`}
+                        >
                             <option value="pending">Pending</option>
                             <option value="in_progress">In Progress</option>
                             <option value="delivered">Delivered</option>
@@ -126,9 +128,10 @@ const OrderFormValidator: React.FC<OrderFormProps> = ({ mode, handleCreate, hand
 
                     <button
                         type="submit"
-                        className={`py-2 px-4 text-white rounded-md ${mode === 1 ? "bg-blue-500 hover:bg-blue-600" : "bg-green-500 hover:bg-green-600"}`}
+                        className="bg-blue-500 text-white py-2 px-4 rounded-md"
+                        disabled={isDisabled}
                     >
-                        {mode === 1 ? "Crear Orden" : "Actualizar Orden"}
+                        {mode === 1 ? "Create Order" : "Update Order"}
                     </button>
                 </Form>
             )}

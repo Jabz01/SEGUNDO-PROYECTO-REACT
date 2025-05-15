@@ -1,5 +1,3 @@
-import { Address } from "./Address";
-
 export interface Order{
 
     id?:number;
@@ -9,6 +7,5 @@ export interface Order{
     quantity?: number;
     total_price?:number;
     status?:String; 
-    address?: Address;
 
 }

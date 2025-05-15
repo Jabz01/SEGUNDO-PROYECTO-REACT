@@ -3,49 +3,46 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
 interface AddressFormProps {
-    mode: number;  // 1: Crear, 2: Actualizar
+    mode: number;
     handleCreate?: (values: Address) => void;
     handleUpdate?: (values: Address) => void;
     address?: Address | null;
 }
 
 const AddressFormValidator: React.FC<AddressFormProps> = ({ mode, handleCreate, handleUpdate, address }) => {
-
-
-    const handleSubmit = (formattedValues: Address) => {
-        if (mode === 1 && handleCreate) {
-            handleCreate(formattedValues);  // Crear dirección
-        } else if (mode === 2 && handleUpdate) {
-            handleUpdate(formattedValues);  // Actualizar dirección
-        } else {
-            console.error("No function provided for the current mode");
-        }
-    };
+    const isDisabled = mode === 2;
 
     return (
-        
         <Formik
             initialValues={address ?? {
-                street: "",  // Corregido el nombre del campo
-                city: "",
-                state: "",
-                postal_code: "",
-                additional_info: "",
-
+                street: '',
+                city: '',
+                state: '',
+                postal_code: '',
+                additional_info: '',
+                order_id: undefined,
             }}
             validationSchema={Yup.object({
-                street: Yup.string().required("La calle es obligatoria"),  // Corregido campo
-                city: Yup.string().required("La ciudad es obligatoria"),
-                state: Yup.string().required("El estado es obligatorio"),
-                postal_code: Yup.string().required("El código postal es obligatorio"),
-                additional_info: Yup.string().required("La información adicional es obligatoria"),
+                street: Yup.string().required('Street is required'),
+                city: Yup.string().required('City is required'),
+                state: Yup.string().required('State is required'),
+                postal_code: Yup.string().required('Postal code is required'),
+                additional_info: Yup.string().required('Additional info is required'),
             })}
             onSubmit={(values) => {
                 const formattedValues: Address = {
                     ...values,
-
+                    postal_code: String(values.postal_code), // Ensuring postal_code is a string if not already
                 };
-                handleSubmit(formattedValues);
+
+                // No se asigna address_id aún; se hará después de crear la dirección
+                if (mode === 1 && handleCreate) {
+                    handleCreate(formattedValues);
+                } else if (mode === 2 && handleUpdate) {
+                    handleUpdate(formattedValues);
+                } else {
+                    console.error("No function provided for the current mode");
+                }
             }}
         >
             {({ handleSubmit }) => (
@@ -55,8 +52,9 @@ const AddressFormValidator: React.FC<AddressFormProps> = ({ mode, handleCreate, 
                         <label htmlFor="street" className="block text-lg font-medium text-gray-700">Street</label>
                         <Field
                             type="text"
-                            name="street"  // Corregido el nombre del campo
-                            className="w-full border rounded-md p-2"
+                            name="street"
+                            disabled={isDisabled}
+                            className={`w-full border rounded-md p-2 ${isDisabled ? 'bg-gray-400 text-gray-700 cursor-not-allowed' : ''}`}
                         />
                         <ErrorMessage name="street" component="p" className="text-red-500 text-sm" />
                     </div>
@@ -67,7 +65,8 @@ const AddressFormValidator: React.FC<AddressFormProps> = ({ mode, handleCreate, 
                         <Field
                             type="text"
                             name="city"
-                            className="w-full border rounded-md p-2"
+                            disabled={isDisabled}
+                            className={`w-full border rounded-md p-2 ${isDisabled ? 'bg-gray-400 text-gray-700 cursor-not-allowed' : ''}`}
                         />
                         <ErrorMessage name="city" component="p" className="text-red-500 text-sm" />
                     </div>
@@ -78,7 +77,8 @@ const AddressFormValidator: React.FC<AddressFormProps> = ({ mode, handleCreate, 
                         <Field
                             type="text"
                             name="state"
-                            className="w-full border rounded-md p-2"
+                            disabled={isDisabled}
+                            className={`w-full border rounded-md p-2 ${isDisabled ? 'bg-gray-400 text-gray-700 cursor-not-allowed' : ''}`}
                         />
                         <ErrorMessage name="state" component="p" className="text-red-500 text-sm" />
                     </div>
@@ -89,7 +89,8 @@ const AddressFormValidator: React.FC<AddressFormProps> = ({ mode, handleCreate, 
                         <Field
                             type="text"
                             name="postal_code"
-                            className="w-full border rounded-md p-2"
+                            disabled={isDisabled}
+                            className={`w-full border rounded-md p-2 ${isDisabled ? 'bg-gray-400 text-gray-700 cursor-not-allowed' : ''}`}
                         />
                         <ErrorMessage name="postal_code" component="p" className="text-red-500 text-sm" />
                     </div>
@@ -100,19 +101,20 @@ const AddressFormValidator: React.FC<AddressFormProps> = ({ mode, handleCreate, 
                         <Field
                             type="text"
                             name="additional_info"
-                            className="w-full border rounded-md p-2"
+                            disabled={isDisabled}
+                            className={`w-full border rounded-md p-2 ${isDisabled ? 'bg-gray-400 text-gray-700 cursor-not-allowed' : ''}`}
                         />
                         <ErrorMessage name="additional_info" component="p" className="text-red-500 text-sm" />
                     </div>
 
                     <button
                         type="submit"
-                        className={`py-2 px-4 text-white rounded-md ${mode === 1 ? "bg-blue-500 hover:bg-blue-600" : "bg-green-500 hover:bg-green-600"}`}
+                        className="bg-blue-500 text-white py-2 px-4 rounded-md"
+                        disabled={isDisabled}
                     >
-                        {mode === 1 ? "Crear Dirección" : "Actualizar Dirección"}
+                        {mode === 1 ? "Create Address" : "Update Address"}
                     </button>
                 </Form>
-                
             )}
         </Formik>
     );

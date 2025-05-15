@@ -32,12 +32,12 @@ import Motorcycles from "views/admin/motorcycles/listMotorcycle";
 
 import App from "views/admin/orders/createOrder";
 import UpdateOrder from "views/admin/orders/uptadeOrder";
-import UpdateAddress from "views/admin/address/updateAddress";
-import CreateAddress from "views/admin/address/createAddress";
+
 
 import FormProducts from "views/admin/products/formProducts";
 import FormDrivers from "views/admin/drivers/formDrivers";
 import FormMotorcycles from "views/admin/motorcycles/formMotorcycles";
+import CreateAddress from "views/admin/address/createAddress";
 
 import RestaurantList from "views/admin/restaurants/RestaurantList";
 import RestaurantForm from "views/admin/restaurants/RestaurantForm";
@@ -77,20 +77,11 @@ const routes = [
   },
 
   {
-    name: "Address",
+    name: "Create Address",
     layout: "/admin",
-    path: "orders/create/address",
+    path: "orders/create/address/:order_id",
     icon: <MdHome className="h-6 w-6" />,
     component: <CreateAddress />,
-    sidebarUnlisted: true
-  },
-
-  {
-    name: "Edit Address",
-    layout: "/admin",
-    path: "orders/address/update/:id",
-    icon: <MdHome className="h-6 w-6" />,
-    component: <UpdateAddress />,
     sidebarUnlisted: true
   },
 

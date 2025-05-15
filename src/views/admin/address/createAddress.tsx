@@ -1,53 +1,57 @@
 import Swal from 'sweetalert2';
-import { useNavigate } from "react-router-dom";
-import AddressFormValidator from 'components/address/addresValidationForm';
 import { addressService } from 'services/addressService';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import AddressFormValidator from 'components/address/addressFormValidator';  // Asegúrate de tener el AddressFormValidator
 import { Address } from 'models/Address';
 
 const CreateAddress = () => {
+
     const navigate = useNavigate();
 
-    // Estado para almacenar el usuario a editar
+    const { order_id: id } = useParams();
 
-    // Lógica de creación
+    // Lógica de creación de dirección
     const handleCreateAddress = async (address: Address) => {
-
         try {
-            const createAddress = await addressService.createAddress(address);
-            if (createAddress) {
+            // Crear la dirección
+            const createdAddress = await addressService.createAddress(
+                { ...address, 
+                    order_id: parseInt(id!) }                     
+            );
+
+            if (createdAddress) {
                 Swal.fire({
                     title: "Completado",
-                    text: "Se ha creado correctamente el registro",
+                    text: "La dirección se ha creado correctamente.",
                     icon: "success",
-                    timer: 3000
-                })
-                console.log("Usuario creado con éxito:", createAddress);
+                    timer: 3000,
+                });
+                console.log("Dirección creada con éxito:", createdAddress);
                 navigate("/admin/orders");
             } else {
                 Swal.fire({
                     title: "Error",
-                    text: "Existe un problema al momento de registrar su dirección",
+                    text: "Existe un problema al momento de crear la dirección.",
                     icon: "error",
-                    timer: 3000
-                })
-                console.log("Dato enviados al backend:", createAddress);
+                    timer: 3000,
+                });
             }
         } catch (error) {
             Swal.fire({
                 title: "Error",
-                text: "Existe un problema al momento de crear el registro",
+                text: "Existe un problema al momento de crear la dirección.",
                 icon: "error",
-                timer: 3000
-            })
+                timer: 3000,
+            });
         }
     };
+
     return (
         <div>
-            {/* Formulario para crear un nuevas ordenes */}
-            <h2>Create User</h2>
+            <h2>Crear Dirección</h2>
             <AddressFormValidator
                 handleCreate={handleCreateAddress}
-                mode={1} 
+                mode={1} // Modo de creación
             />
         </div>
     );
