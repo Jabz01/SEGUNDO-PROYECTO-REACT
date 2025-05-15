@@ -25,7 +25,7 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   // Verificar si hay una sesión existente al cargar
   useEffect(() => {
-    //
+    setProducts(JSON.parse(localStorage.getItem(LOCAL_CART_KEY) || "[]"))
   }, []);
 
   const addProduct = (product: any) =>
