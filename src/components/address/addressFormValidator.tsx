@@ -32,10 +32,10 @@ const AddressFormValidator: React.FC<AddressFormProps> = ({ mode, handleCreate, 
             onSubmit={(values) => {
                 const formattedValues: Address = {
                     ...values,
-                    postal_code: String(values.postal_code), // Ensuring postal_code is a string if not already
+                    postal_code: String(values.postal_code), 
                 };
 
-                // No se asigna address_id aún; se hará después de crear la dirección
+
                 if (mode === 1 && handleCreate) {
                     handleCreate(formattedValues);
                 } else if (mode === 2 && handleUpdate) {

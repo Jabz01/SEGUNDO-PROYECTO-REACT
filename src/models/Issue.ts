@@ -1,8 +1,11 @@
 export interface Issue{
-    id_motocycle:number,
-    id:number,
-    description: String,
-    issue_type:String,
-    date_reported:Date,
-    status:String;
+
+    motorcycle_id?:number,
+    id?:number,
+    description?: string,
+    issue_type?:string,
+    date_reported?:string,
+    status?:string; 
+    photo?: string;
+
 }

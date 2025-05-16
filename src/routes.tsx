@@ -20,9 +20,12 @@ import {
   MdOutlineMoped,
   MdDirectionsBike,
   MdPedalBike,
-  MdRestaurant, 
-  MdAddBusiness, 
-  MdEdit
+  MdRestaurant,
+  MdAddBusiness,
+  MdEdit,
+  MdCheckroom,
+  MdEmergencyRecording,
+  MdEmergency
 } from "react-icons/md";
 
 import Products from "views/admin/products/listProducts";
@@ -42,6 +45,10 @@ import CreateAddress from "views/admin/address/createAddress";
 import RestaurantList from "views/admin/restaurants/RestaurantList";
 import RestaurantForm from "views/admin/restaurants/RestaurantForm";
 import RestaurantEdit from "views/admin/restaurants/RestaurantEdit";
+import UpdateIssue from "views/admin/issue/updateIssue";
+import ListIssues from "views/admin/issue/listIssue";
+import CreateIssue from "views/admin/issue/createIssue";
+import CreatePhoto from "views/admin/photo/createPhoto";
 
 
 const routes = [
@@ -82,6 +89,41 @@ const routes = [
     path: "orders/create/address/:order_id",
     icon: <MdHome className="h-6 w-6" />,
     component: <CreateAddress />,
+    sidebarUnlisted: true
+  },
+
+  {
+    name: "Problemas",
+    layout: "/admin",
+    path: "issues",
+    icon: <MdEmergency className="h-6 w-6" />,
+    component: <ListIssues />,
+  },
+
+  {
+    name: "Reportar problemas",
+    layout: "/admin",
+    path: "issues/report",
+    icon: <MdHome className="h-6 w-6" />,
+    component: <CreateIssue />,
+    sidebarUnlisted: true
+  },
+
+  {
+    name: "Actualizar estados de problemas",
+    layout: "/admin",
+    path: "issues/report/update",
+    icon: <MdHome className="h-6 w-6" />,
+    component: <UpdateIssue />,
+    sidebarUnlisted: true
+  },
+
+  {
+    name: "Subir evidencia",
+    layout: "/admin",
+    path: "issues/photo/:issue_id",
+    icon: <MdHome className="h-6 w-6" />,
+    component: <CreatePhoto />,
     sidebarUnlisted: true
   },
 
@@ -173,7 +215,7 @@ const routes = [
     sidebarUnlisted: true,
   },
 
-  
+
   // {
   //   name: "NFT Marketplace",
   //   layout: "/admin",
