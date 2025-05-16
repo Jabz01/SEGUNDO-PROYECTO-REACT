@@ -25,7 +25,7 @@ export default function SignIn() {
             Sign In with Google
           </h5>
         </button>
-        <button onClick={() => login({}, 'microsoft')} className="mb-6 flex h-[50px] w-full items-center justify-center gap-2 rounded-xl bg-lightPrimary hover:cursor-pointer dark:bg-navy-800">
+        <button onClick={() => login({}, 'azure')} className="mb-6 flex h-[50px] w-full items-center justify-center gap-2 rounded-xl bg-lightPrimary hover:cursor-pointer dark:bg-navy-800">
           <div className="rounded-full text-xl">
             <BsMicrosoft />
           </div>
