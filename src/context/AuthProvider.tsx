@@ -1,6 +1,7 @@
 import React, { createContext, useState, ReactNode, useEffect, useContext } from "react";
 import { auth } from "../firebase.js";
 import { signInWithPopup, GithubAuthProvider } from "firebase/auth";
+import { registerCustomer } from "services/customerService";
 
 import env from "../env/env"
 import { PublicClientApplication } from "@azure/msal-browser"
@@ -12,9 +13,9 @@ interface User {
   id: string,
   name: string;
   email: string;
+  phone?: string;
   token?: string;
   avatar?: string;
-  phone?: string;
   license_number?: string;
   status?: string;
 }
@@ -40,7 +41,7 @@ const defaultAuthContext: AuthContextType = {
 // Creamos el contexto
 export const AuthContext = createContext<AuthContextType>(defaultAuthContext);
 
-export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+export const AuthProvider: any = ({ children }: any) => {
   const [user, setUser] = useState<User | null>(null);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -62,7 +63,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         console.error('Error verificando autenticación:', error);
         setError('Error al verificar la autenticación');
         // Si hay error, limpiamos todo por seguridad
-        localStorage.removeItem('authToken');
         localStorage.removeItem('user');
       } finally {
         setIsLoading(false);
@@ -91,31 +91,27 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
       let id = result.correlationId;
       let token = result.accessToken;
-
-      localStorage.setItem("user", JSON.stringify({
+      const newUser = {
         id: id,
         name: result.account.name || "Usuario Azure",
         email: result.account.username,
         avatar: URL_DE_AVATAR_POR_DEFECTO,
         token: token,
-      }));
+      }
 
+
+      localStorage.setItem("user", JSON.stringify(newUser));
       setToken(token);
-      setUser({
-        id: id,
-        name: result.account.name || "Usuario Azure",
-        email: result.account.username,
-        avatar: URL_DE_AVATAR_POR_DEFECTO,
-        token: token
-      });
+      setUser(newUser);
       setIsLoggedIn(true);
-    } catch (error) {
+    }
+    catch (error) {
       console.error("Error en login con Azure:", error);
       setError("Error al iniciar sesión con Azure");
     }
   }
 
-  const loginWithGithub = async () => {
+  const loginWithGithub = async (phone: string) => {
     try {
       const provider = new GithubAuthProvider();
       const result = await signInWithPopup(auth, provider);
@@ -124,30 +120,40 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       const user = result.user;
 
       if (user && token) {
-        localStorage.setItem("user", JSON.stringify({
+        const newUser = {
           id: user.uid,
           name: user.displayName || "Usuario GitHub",
           email: user.email!,
           avatar: user.photoURL || "URL_DE_AVATAR_POR_DEFECTO",
-          token: token,
-        }));
+          token,
+          phone,
+        };
 
+        // Se verifica que el usuario no exista en el backend
+        const existingUserResponse = await fetch(`${env.VITE_API_URL}/customers/${user.email}`);
+        if (existingUserResponse.ok) {
+          const existingUser = await existingUserResponse.json();
+          if (existingUser) {
+            setUser(existingUser);
+            localStorage.setItem("user", JSON.stringify(existingUser));
+            setIsLoggedIn(true);
+            return;
+          }
+        }
+
+        await registerCustomer(newUser);
+
+        localStorage.setItem("user", JSON.stringify(newUser));
         setToken(token);
-        setUser({
-          id: user.uid,
-          name: user.displayName || "Usuario GitHub",
-          email: user.email!,
-          avatar: user.photoURL || "URL_DE_AVATAR_POR_DEFECTO",
-          token
-        });
+        setUser(newUser);
         setIsLoggedIn(true);
       }
-    } catch (error: any) {
-      console.error("Error en login con GitHub:", error.message);
-      setError("Error al iniciar sesión con GitHub");
     }
-  };
-
+    catch (error) {
+      console.error("Error en login con Github:", error);
+      setError("Error al iniciar sesión con Github");
+    }
+  }
 
   // Función para iniciar sesión con un proveedor OAuth
   const login = async (_data: any, provider?: string): Promise<void> => {
@@ -158,7 +164,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
       //Para Github
       if (provider === "github") {
-        await loginWithGithub();
+        await loginWithGithub(_data.phone);
       }
 
       // if (provider === "google")
