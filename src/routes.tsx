@@ -208,7 +208,7 @@ const routes = [
   },
 
   {
-    name: "Drivers",
+    name: "Conductores",
     layout: "/admin",
     path: "drivers",
     icon: <MdDirectionsBike className="h-6 w-6" />,
@@ -241,11 +241,13 @@ const routes = [
   },
 
   {
-    name: "Profile",
+    name: "Perfil",
     layout: "/admin",
     path: "profile",
     icon: <MdPerson className="h-6 w-6" />,
     component: <Profile />,
+    sidebarUnlisted: true
+
   },
   {
     name: "Sign In",
@@ -286,7 +288,7 @@ const routes = [
     component: <CustomersList />,
   },
   {
-    name: "Agregar Cliente",
+    name: "Create Customer",
     layout: "/admin",
     path: "customers/new",
     icon: <MdAddBusiness className="h-6 w-6" />,
@@ -294,7 +296,7 @@ const routes = [
     sidebarUnlisted: true, 
   },
   {
-    name: "Editar Cliente",
+    name: "Edit Customer",
     layout: "/admin",
     path: "customers/edit/:id",
     icon: <MdEdit className="h-6 w-6" />,

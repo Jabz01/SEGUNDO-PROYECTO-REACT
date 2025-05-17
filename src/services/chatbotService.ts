@@ -1,27 +1,30 @@
+import { GoogleGenAI } from "@google/genai";
 import { chatbotBasePrompt } from "../chatbotPrompt";
+import routes from "routes";
 
-const API_URL = "https://api.gemini.com/v1/chat";
-const API_KEY = "AIzaSyCIZ1Mc2R_lJZVuIoC3TiyW5CAIpg2wVvg"; 
+const ai = new GoogleGenAI({ apiKey: "AIzaSyCIZ1Mc2R_lJZVuIoC3TiyW5CAIpg2wVvg"});
 
 export const sendMessageToChatbot = async (message: string, currentPath: string): Promise<string> => {
   try {
-    const initialContext = `El usuario está en: ${currentPath}. Indícale qué puede hacer en esta página.`;
+    const formattedRoutes = routes.map(route => `- ${route.name}: ${route.layout}/${route.path}`).join("\n");
 
-    const response = await fetch(API_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${API_KEY}`,
-      },
-      body: JSON.stringify({ prompt: `${chatbotBasePrompt}\n${initialContext}\nUsuario: ${message}` }),
+
+    const fullPrompt = `
+      ${chatbotBasePrompt}
+
+      📍 **Rutas disponibles en la plataforma:**
+      ${formattedRoutes}
+
+      El usuario está en: ${currentPath}. Indícale qué puede hacer en esta página.
+      Usuario: ${message}
+    `;
+
+    const response = await ai.models.generateContent({
+      model: "gemini-2.0-flash",
+      contents: fullPrompt,
     });
 
-    if (!response.ok) {
-      throw new Error("Error en la solicitud");
-    }
-
-    const data = await response.json();
-    return data?.reply || "Lo siento, no tengo una respuesta en este momento.";
+    return response.text || "Lo siento, no tengo una respuesta en este momento.";
   } catch (error) {
     console.error("Error en el chatbot:", error);
     return "Hubo un problema al conectar con el chatbot.";

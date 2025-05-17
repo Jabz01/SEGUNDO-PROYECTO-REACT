@@ -56,7 +56,7 @@ const RestaurantList = () => {
             <h2 className="text-xl font-bold text-gray-700">Lista de Restaurantes</h2>
             <button
               onClick={() => navigate("/admin/restaurants/create")}
-              className="my-4 py-2 px-4 flex items-center bg-green-500 text-white rounded-md hover:bg-green-600"
+              className="my-4 py-2 px-4 flex items-center bg-blue-500 text-white rounded-md hover:bg-green-600"
             >
               <Plus size={20} className="mr-2" /> Crear Restaurante
             </button>
