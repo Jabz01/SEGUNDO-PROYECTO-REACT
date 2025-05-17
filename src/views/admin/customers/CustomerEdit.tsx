@@ -22,7 +22,7 @@ const CustomerEdit = () => {
     };
 
     fetchCustomer();
-  }, [id]);
+  }, [idNumber]);
 
   if (loading) return <p className="text-center text-gray-500">Cargando cliente...</p>;
 

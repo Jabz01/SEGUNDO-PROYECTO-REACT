@@ -231,9 +231,7 @@ export const AuthProvider: any = ({ children }: any) => {
     setToken(null);
     setUser(null);
     setIsLoggedIn(false);
-
-    // Eliminar datos del localStorage
-    localStorage.removeItem('authToken');
+    window.location.reload(); 
     localStorage.removeItem('user');
   };
 
