@@ -8,11 +8,11 @@ const CustomerEdit = () => {
   const { id } = useParams<{ id: string }>();
   const [customer, setCustomer] = useState<Customer | null>(null);
   const [loading, setLoading] = useState(true);
-
+  const idNumber = parseInt(id, 10);
   useEffect(() => {
     const fetchCustomer = async () => {
       try {
-        const data = await customerService.getCustomerById(id); 
+        const data = await customerService.getCustomerById(idNumber); 
         setCustomer(data);
       } catch (error) {
         console.error("Error al cargar cliente:", error);

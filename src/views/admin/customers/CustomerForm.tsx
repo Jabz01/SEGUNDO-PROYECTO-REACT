@@ -28,7 +28,7 @@ const CustomerForm = ({ customer }: { customer?: Customer }) => {
       let message = "";
 
       if (customer) {
-        await customerService.updateCustomer(customer.id, values);
+        await customerService.updateCustomer(+customer.id, values);
         message = "El cliente ha sido actualizado correctamente.";
       } else {
         await customerService.registerCustomer(values);
