@@ -10,7 +10,7 @@ interface AddressFormProps {
 }
 
 const AddressFormValidator: React.FC<AddressFormProps> = ({ mode, handleCreate, handleUpdate, address }) => {
-    const isDisabled = mode === 2;
+    const isDisabled = mode === 3;
 
     return (
         <Formik
@@ -32,7 +32,7 @@ const AddressFormValidator: React.FC<AddressFormProps> = ({ mode, handleCreate, 
             onSubmit={(values) => {
                 const formattedValues: Address = {
                     ...values,
-                    postal_code: String(values.postal_code), 
+                    postal_code: String(values.postal_code),
                 };
 
 
@@ -107,13 +107,16 @@ const AddressFormValidator: React.FC<AddressFormProps> = ({ mode, handleCreate, 
                         <ErrorMessage name="additional_info" component="p" className="text-red-500 text-sm" />
                     </div>
 
-                    <button
-                        type="submit"
-                        className="bg-blue-500 text-white py-2 px-4 rounded-md"
-                        disabled={isDisabled}
-                    >
-                        {mode === 1 ? "Create Address" : "Update Address"}
-                    </button>
+                    {(mode === 1 || mode === 2) && (
+                        <button
+                            type="submit"
+                            className="bg-blue-500 text-white py-2 px-4 rounded-md"
+                            disabled={isDisabled}
+                        >
+                            {mode === 1 ? "Registrar Dirección" : "Actualizar Dirección"}
+                        </button>
+                    )}
+
                 </Form>
             )}
         </Formik>

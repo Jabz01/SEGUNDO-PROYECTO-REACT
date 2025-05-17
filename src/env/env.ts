@@ -6,7 +6,10 @@ const env = {
         scopes: [
             "user.read"
         ]
-    }
+    },
+    GOOGLE_OAUTH_CONFIG:{
+        clientId: "1014147833890-0428rcbr9oq26tbugk7tufu2brhnrlbe.apps.googleusercontent.com"
+    } 
 }
 
 export default env;

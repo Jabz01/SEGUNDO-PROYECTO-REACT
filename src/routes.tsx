@@ -25,7 +25,8 @@ import {
   MdEdit,
   MdCheckroom,
   MdEmergencyRecording,
-  MdEmergency
+  MdEmergency,
+  MdDirections
 } from "react-icons/md";
 
 import Products from "views/admin/products/listProducts";
@@ -49,25 +50,28 @@ import UpdateIssue from "views/admin/issue/updateIssue";
 import ListIssues from "views/admin/issue/listIssue";
 import CreateIssue from "views/admin/issue/createIssue";
 import CreatePhoto from "views/admin/photo/createPhoto";
+import UpdateAddress from "views/admin/address/updateAddress";
+import ViewAddress from "views/admin/address/viewAddres";
+import ListAddress from "views/admin/address/listAddress";
 
 
 const routes = [
   {
-    name: "Explore restaurants",
+    name: "Explorar Restaurantes",
     layout: "/admin",
     path: "default",
     icon: <MdHome className="h-6 w-6" />,
     component: <MainDashboard />,
   },
   {
-    name: "Orders",
+    name: "Pedidos",
     layout: "/admin",
     path: "orders",
     icon: <MdOutlineMoped className="h-6 w-6" />,
     component: <Orders />,
   },
   {
-    name: "Create Orders",
+    name: "Crear pedidos",
     layout: "/admin",
     path: "orders/create",
     icon: <MdHome className="h-6 w-6" />,
@@ -75,7 +79,7 @@ const routes = [
     sidebarUnlisted: true
   },
   {
-    name: "Edit Orders",
+    name: "Editar pedidos",
     layout: "/admin",
     path: "orders/update/:id",
     icon: <MdHome className="h-6 w-6" />,
@@ -84,11 +88,37 @@ const routes = [
   },
 
   {
-    name: "Create Address",
+    name: "direcciones",
+    layout: "/admin",
+    path: "address",
+    icon: <MdDirections className="h-6 w-6" />,
+    component: <ListAddress />,
+  },
+
+  {
+    name: "Registrar dirección",
     layout: "/admin",
     path: "orders/create/address/:order_id",
     icon: <MdHome className="h-6 w-6" />,
     component: <CreateAddress />,
+    sidebarUnlisted: true
+  },
+
+  {
+    name: "Actualizar dirección",
+    layout: "/admin",
+    path: "address/update/:id",
+    icon: <MdHome className="h-6 w-6" />,
+    component: <UpdateAddress />,
+    sidebarUnlisted: true
+  },
+
+  {
+    name: "Detalles dirección",
+    layout: "/admin",
+    path: "address/view/:id",
+    icon: <MdHome className="h-6 w-6" />,
+    component: <ViewAddress />,
     sidebarUnlisted: true
   },
 
@@ -112,7 +142,7 @@ const routes = [
   {
     name: "Actualizar estados de problemas",
     layout: "/admin",
-    path: "issues/report/update",
+    path: "/issues/update/:id",
     icon: <MdHome className="h-6 w-6" />,
     component: <UpdateIssue />,
     sidebarUnlisted: true

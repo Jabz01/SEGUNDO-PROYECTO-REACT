@@ -126,13 +126,15 @@ const OrderFormValidator: React.FC<OrderFormProps> = ({ mode, handleCreate, hand
                         <ErrorMessage name="status" component="p" className="text-red-500 text-sm" />
                     </div>
 
-                    <button
-                        type="submit"
-                        className="bg-blue-500 text-white py-2 px-4 rounded-md"
-                        disabled={isDisabled}
-                    >
-                        {mode === 1 ? "Create Order" : "Update Order"}
-                    </button>
+                    {(mode === 1 || mode === 2) && (
+                        <button
+                            type="submit"
+                            className="bg-blue-500 text-white py-2 px-4 rounded-md"
+                            disabled={isDisabled}
+                        >
+                            {mode === 1 ? "Registrar pedido" : "Actualizar pedido"}
+                        </button>
+                    )}
                 </Form>
             )}
         </Formik>

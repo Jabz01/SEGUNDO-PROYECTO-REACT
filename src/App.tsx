@@ -8,6 +8,7 @@ import { ProtectedRoute } from "guards/ProtectedRoute";
 import { PublicRoute } from "guards/PublicRoute";
 import { CartProvider } from "context/cartProvider";
 
+
 const App = () => {
 
   return (
@@ -21,6 +22,8 @@ const App = () => {
       </CartProvider>
     </AuthProvider>
   );
+
+
 };
 
 export default App;

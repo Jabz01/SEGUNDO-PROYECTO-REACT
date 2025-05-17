@@ -74,13 +74,15 @@ const PhotoFormValidator: React.FC<PhotoFormProps> = ({ mode, handleCreate, hand
                     </div>
 
                     {/* Botón */}
-                    <button
-                        type="submit"
-                        className="bg-blue-500 text-white py-2 px-4 rounded-md"
-                        disabled={isDisabled}
-                    >
-                        {mode === 1 ? "Crear Foto(s)" : "Actualizar Foto"}
-                    </button>
+                    {(mode === 1 || mode === 2) && (
+                        <button
+                            type="submit"
+                            className="bg-blue-500 text-white py-2 px-4 rounded-md"
+                            disabled={isDisabled}
+                        >
+                            {mode === 1 ? "Subir foto(s)" : "Actualizar evidencia fotografica"}
+                        </button>
+                    )}
                 </Form>
             )}
         </Formik>

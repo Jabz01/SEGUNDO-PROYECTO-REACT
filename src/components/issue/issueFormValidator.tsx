@@ -130,13 +130,15 @@ const IssueFormValidator: React.FC<IssueFormProps> = ({ mode, handleCreate, hand
                         <ErrorMessage name="status" component="p" className="text-red-500 text-sm" />
                     </div>
 
-                    <button
-                        type="submit"
-                        className="bg-blue-500 text-white py-2 px-4 rounded-md"
-                        disabled={isDisabled}
-                    >
-                        {mode === 1 ? "Crear Reporte" : "Actualizar Reporte"}
-                    </button>
+                    {(mode === 1 || mode === 2) && (
+                        <button
+                            type="submit"
+                            className="bg-blue-500 text-white py-2 px-4 rounded-md"
+                            disabled={isDisabled}
+                        >
+                            {mode === 1 ? "Registrar Problema" : "Actualizar problema"}
+                        </button>
+                    )}
                 </Form>
             )}
         </Formik>

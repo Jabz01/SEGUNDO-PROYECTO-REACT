@@ -5,6 +5,7 @@ import { registerCustomer } from "services/customerService";
 
 import env from "../env/env"
 import { PublicClientApplication } from "@azure/msal-browser"
+import { useGoogleLogin } from '@react-oauth/google';
 
 import URL_DE_AVATAR_POR_DEFECTO from "assets/img/profile/image1.png"
 
@@ -155,6 +156,46 @@ export const AuthProvider: any = ({ children }: any) => {
     }
   }
 
+  const loginWithGoogle = useGoogleLogin({
+    onSuccess: async (tokenResponse) => {
+      try {
+        const token = tokenResponse.access_token;
+
+        // Aquí puedes usar el token para llamar a una API de Google si quieres más info
+        const res = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const profile = await res.json();
+
+        const newUser = {
+          id: profile.sub,
+          name: profile.name,
+          email: profile.email,
+          avatar: profile.picture || URL_DE_AVATAR_POR_DEFECTO,
+          token,
+        };
+
+        // Guardamos el usuario
+        localStorage.setItem('user', JSON.stringify(newUser));
+        setToken(token);
+        setUser(newUser);
+        console.log(newUser);
+        setIsLoggedIn(true);
+
+      } catch (error) {
+        console.error("Error al obtener información del perfil de Google", error);
+        setError("Error al iniciar sesión con Google");
+      }
+    },
+    onError: (error) => {
+      console.error("Login fallido", error);
+      setError("Error al iniciar sesión con Google");
+    }
+  });
+
+
   // Función para iniciar sesión con un proveedor OAuth
   const login = async (_data: any, provider?: string): Promise<void> => {
     setIsLoading(true);
@@ -171,6 +212,10 @@ export const AuthProvider: any = ({ children }: any) => {
 
       if (provider === "azure") {
         await loginWithAzure();
+      }
+
+      if (provider === "google") {
+        loginWithGoogle(); // ya está configurado
       }
 
     } catch (error) {

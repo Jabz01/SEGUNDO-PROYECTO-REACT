@@ -44,9 +44,9 @@ class Address_Service {
 
 
     // Actualizar una dirección
-    async updateAddress(address_id: number, address: Partial<Address>, order_id: number): Promise<Address | null> {
+    async updateAddress(address_id: number, address: Partial<Address>): Promise<Address | null> {
         try {
-            const updatedAddress = { ...address, order_id };  // Incluye el order_id en la actualización
+            const updatedAddress = { ...address };  // Incluye el order_id en la actualización
             const response = await api.put<Address>(`${API_URL}/${address_id}`, updatedAddress);
             return response.data;
         } catch (error) {
