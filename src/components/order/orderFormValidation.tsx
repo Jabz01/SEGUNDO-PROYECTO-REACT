@@ -10,7 +10,7 @@ interface OrderFormProps {
 }
 
 const OrderFormValidator: React.FC<OrderFormProps> = ({ mode, handleCreate, handleUpdate, order }) => {
-    const isDisabled = mode === 2;
+    const isDisabled = mode === 3;
 
     return (
         <Formik
