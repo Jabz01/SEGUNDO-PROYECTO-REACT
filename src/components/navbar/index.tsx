@@ -7,7 +7,6 @@ import { BsArrowBarUp } from "react-icons/bs";
 import { FiSearch } from "react-icons/fi";
 import { RiMoonFill, RiSunFill } from "react-icons/ri";
 import { IoMdNotificationsOutline, IoMdInformationCircleOutline } from "react-icons/io";
-import avatarDefault from "assets/img/avatars/avatar4.png"; // 🔹 Avatar por defecto
 import { useAuth } from "context/AuthProvider";
 
 const Navbar = (props: { onOpenSidenav: () => void; brandText: string; secondary?: boolean | string; }) => {

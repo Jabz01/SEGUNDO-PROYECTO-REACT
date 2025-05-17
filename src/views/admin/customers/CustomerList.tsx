@@ -61,7 +61,7 @@ const CustomerList = () => {
           <div className="p-6">
             <h2 className="text-xl font-bold text-gray-700">Lista de Clientes</h2>
 
-            {/* 🔹 Mostrar mensaje si hay dos clientes registrados */}
+            {/* Mostrar mensaje si hay dos clientes registrados */}
             {customers.length >= 2 ? (
               <p className="my-4 p-4 bg-red-500 text-white rounded-md text-center">
                 Solo se pueden registrar dos clientes. No puedes agregar más.
@@ -92,7 +92,7 @@ const CustomerList = () => {
                       <td className="px-6 py-4">{customer.phone}</td>
                       <td className="px-6 py-4">{customer.email}</td>
                       <td className="px-6 py-4 flex space-x-2">
-                        {/* 🔹 Mostrar botón de edición solo si el nombre coincide */}
+                        {/* Mostrar botón de edición solo si el nombre coincide */}
                         {currentUser.name === customer.name && (
                           <button
                             onClick={() => navigate(`/admin/customers/edit/${customer.name}`)}
