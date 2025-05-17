@@ -1,7 +1,7 @@
 import React, { createContext, useState, ReactNode, useEffect, useContext } from "react";
 import { auth } from "../firebase.js";
 import { signInWithPopup, GithubAuthProvider } from "firebase/auth";
-import { registerCustomer } from "services/customerService";
+import { customerService } from "services/customerService";
 
 import env from "../env/env"
 import { PublicClientApplication } from "@azure/msal-browser"
@@ -142,7 +142,7 @@ export const AuthProvider: any = ({ children }: any) => {
           }
         }
 
-        await registerCustomer(newUser);
+        await customerService.registerCustomer(newUser);
 
         localStorage.setItem("user", JSON.stringify(newUser));
         setToken(token);
@@ -231,9 +231,7 @@ export const AuthProvider: any = ({ children }: any) => {
     setToken(null);
     setUser(null);
     setIsLoggedIn(false);
-
-    // Eliminar datos del localStorage
-    localStorage.removeItem('authToken');
+    window.location.reload(); 
     localStorage.removeItem('user');
   };
 

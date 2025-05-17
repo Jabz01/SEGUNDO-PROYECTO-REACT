@@ -1,49 +1,31 @@
-import avatar from "assets/img/avatars/avatar11.png";
-import banner from "assets/img/profile/banner.png";
-import Card from "components/card";
 
-const Banner = () => {
+const ProfileCard = () => {
   return (
-    <Card extra={"items-center w-full h-full p-[16px] bg-cover"}>
-      {/* Background and profile */}
-      <div
-        className="relative mt-1 flex h-32 w-full justify-center rounded-xl bg-cover"
-        style={{ backgroundImage: `url(${banner})` }}
-      >
-        <div className="absolute -bottom-12 flex h-[87px] w-[87px] items-center justify-center rounded-full border-[4px] border-white bg-pink-400 dark:!border-navy-700">
-          <img className="h-full w-full rounded-full" src={avatar} alt="" />
-        </div>
+    <div className="max-w-sm mx-auto bg-white shadow-md rounded-lg overflow-hidden p-6 dark:bg-gray-800">
+      {/* Imagen centrada */}
+      <div className="flex justify-center">
+        <img
+          src={user.avatar || "default-avatar.png"}
+          alt={user.name || "Usuario"}
+          className="w-24 h-24 rounded-full border-4 border-gray-300 dark:border-gray-600"
+        />
       </div>
 
-      {/* Name and position */}
-      <div className="mt-16 flex flex-col items-center">
-        <h4 className="text-xl font-bold text-navy-700 dark:text-white">
-          Adela Parkson
-        </h4>
-        <p className="text-base font-normal text-gray-600">Product Manager</p>
+      {/* Información del usuario */}
+      <div className="text-center mt-4">
+        <h2 className="text-xl font-bold text-gray-700 dark:text-white">{user.name || "Usuario"}</h2>
+        <p className="text-gray-500 dark:text-gray-300">{user.email || "Correo no registrado"}</p>
+        <p className="text-gray-500 dark:text-gray-300">{user.phone || "Teléfono no disponible"}</p>
       </div>
 
-      {/* Post followers */}
-      <div className="mt-6 mb-3 flex gap-4 md:!gap-14">
-        <div className="flex flex-col items-center justify-center">
-          <p className="text-2xl font-bold text-navy-700 dark:text-white">17</p>
-          <p className="text-sm font-normal text-gray-600">Posts</p>
-        </div>
-        <div className="flex flex-col items-center justify-center">
-          <p className="text-2xl font-bold text-navy-700 dark:text-white">
-            9.7K
-          </p>
-          <p className="text-sm font-normal text-gray-600">Followers</p>
-        </div>
-        <div className="flex flex-col items-center justify-center">
-          <p className="text-2xl font-bold text-navy-700 dark:text-white">
-            434
-          </p>
-          <p className="text-sm font-normal text-gray-600">Following</p>
-        </div>
+      {/* Botón en la parte inferior */}
+      <div className="mt-6 flex justify-center">
+        <button className="w-1/3 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
+          Editar Perfil
+        </button>
       </div>
-    </Card>
+    </div>
   );
 };
 
-export default Banner;
+export default ProfileCard;
