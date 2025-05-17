@@ -34,7 +34,7 @@ const UpdateAddress = () => {
           icon: "success",
           timer: 3000,
         });
-        navigate("/admin/addresses"); // Redirecciona al listado de direcciones
+        navigate("/admin/address"); // Redirecciona al listado de direcciones
       } else {
         Swal.fire({
           title: "Error",

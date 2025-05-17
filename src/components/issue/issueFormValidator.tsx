@@ -11,7 +11,7 @@ interface IssueFormProps {
 }
 
 const IssueFormValidator: React.FC<IssueFormProps> = ({ mode, handleCreate, handleUpdate, issue }) => {
-    const isDisabled = mode === 2;
+    const isDisabled = mode === 3;
 
     const convertToSQLDateTime = (iso: string): string => {
         const d = new Date(iso);

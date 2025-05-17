@@ -10,14 +10,16 @@ interface PhotoFormProps {
 }
 
 const PhotoFormValidator: React.FC<PhotoFormProps> = ({ mode, handleCreate, handleUpdate, photo }) => {
-    const isDisabled = mode === 2;
+    const isDisabled = mode === 3;
 
     return (
         <Formik
             initialValues={{
                 caption: photo?.caption ?? "",
                 issue_id: photo?.issue_id ?? undefined,
-                taken_at: photo?.taken_at ?? "",
+                taken_at: photo?.taken_at
+                    ? new Date(photo.taken_at).toISOString().slice(0, 16) // "YYYY-MM-DDTHH:mm"
+                    : new Date().toISOString().slice(0, 16),
                 photoFiles: [] as File[], // múltiples archivos
             }}
             validationSchema={Yup.object({
@@ -27,6 +29,7 @@ const PhotoFormValidator: React.FC<PhotoFormProps> = ({ mode, handleCreate, hand
             })}
             onSubmit={(values) => {
                 const formattedValues: Photo & { photoFiles?: File[] } = {
+                    ...photo,
                     caption: values.caption,
                     issue_id: values.issue_id,
                     photoFiles: values.photoFiles,
@@ -71,6 +74,18 @@ const PhotoFormValidator: React.FC<PhotoFormProps> = ({ mode, handleCreate, hand
                             }}
                             className={`w-full border rounded-md p-2 ${isDisabled ? 'bg-gray-400 text-gray-700 cursor-not-allowed' : ''}`}
                         />
+                    </div>
+
+                    {/* Fecha Reportada */}
+                    <div>
+                        <label htmlFor="taken_at" className="block text-lg font-medium text-gray-700">Tomada el:</label>
+                        <Field
+                            type="datetime-local"
+                            name="taken_at"
+                            disabled={isDisabled}
+                            className={`w-full border rounded-md p-2 ${isDisabled ? 'bg-gray-400 text-gray-700 cursor-not-allowed' : ''}`}
+                        />
+                        <ErrorMessage name="taken_at" component="p" className="text-red-500 text-sm" />
                     </div>
 
                     {/* Botón */}

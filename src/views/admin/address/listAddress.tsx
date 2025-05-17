@@ -27,7 +27,7 @@ const ListAddress = () => {
 
   const handleEdit = (id: number) => {
     console.log(`Editar dirección con ID: ${id}`);
-    navigate(`/admin/addresses/update/${id}`);
+    navigate(`/admin/address/update/${id}`);
   };
 
   const handleDelete = async (id: number) => {
