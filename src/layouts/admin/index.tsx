@@ -4,6 +4,7 @@ import Navbar from "components/navbar";
 import Sidebar from "components/sidebar";
 import Footer from "components/footer/Footer";
 import routes from "routes";
+import Chatbot from "../../views/admin/chatbot/Chatbot"
 
 export default function Admin(props: { [x: string]: any }) {
   const { ...rest } = props;
@@ -83,6 +84,8 @@ export default function Admin(props: { [x: string]: any }) {
                   element={<Navigate to="/admin/default" replace />}
                 />
               </Routes>
+              {/*Integración del chabot*/}
+              <Chatbot />
             </div>
             <div className="p-3">
               <Footer />
