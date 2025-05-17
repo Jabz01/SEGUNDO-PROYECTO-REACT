@@ -25,8 +25,11 @@ import { MdAddLocationAlt, MdAddShoppingCart, MdLocalPhone, MdModeEditOutline } 
 
 import image1 from "assets/img/profile/equis.jpg";
 import { Restaurant } from "models/Restaurant";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
+  const navigate = useNavigate();
+
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
   const [menus, setMenus] = useState(null);
   const { user, isLoggedIn } = useAuth();
@@ -60,12 +63,12 @@ const Dashboard = () => {
 
   const handleSeeMenu = async (id: any) => {
     console.log("eee:", id);
-    
+    navigate("menu/" + id);
   }
 
   return (
     <div className="mt-5" >
-      <div>
+      <div className="grid grid-cols-1 gap-3 md:grid-cols-2" >
         {restaurants.map((item) => (
           <div key={item.id} className="flex w-full items-center justify-between rounded-2xl bg-white p-3 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
             <div className="flex items-center">
@@ -80,19 +83,19 @@ const Dashboard = () => {
                   <MdAddLocationAlt /> {item.address}
                   <a
                     className="ml-1 font-medium text-brand-500 hover:text-brand-500 dark:text-white  flex flex-row items-center"
-                    href=" "
+
                   >
                     <MdLocalPhone /> {item.phone}
                   </a>
                 </p>
               </div>
             </div>
-            <div className="mr-4 flex items-center justify-center text-gray-600 dark:text-white">
+            <div className="mr-4 ml-4 flex items-center justify-center text-gray-600 dark:text-white">
               <button
-                          onClick={() => item.id !== undefined && handleSeeMenu(item.id)}
-                          className=""
-                        >
-                          <MdAddShoppingCart /> {/* Ícono de eliminar */}
+                onClick={() => item.id !== undefined && handleSeeMenu(item.id)}
+                className=""
+              >
+                <MdAddShoppingCart size={40} /> {/* Ícono de eliminar */}
               </button>
             </div>
           </div>

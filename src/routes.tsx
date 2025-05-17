@@ -57,6 +57,7 @@ import ListAddress from "views/admin/address/listAddress";
 import CustomersList from "views/admin/customers/CustomerList";
 import CustomerForm from "views/admin/customers/CustomerForm";
 import CustomerEdit from "views/admin/customers/CustomerEdit";
+import MenuView from "views/admin/default/menu";
 
 
 
@@ -67,6 +68,14 @@ const routes = [
     path: "default",
     icon: <MdHome className="h-6 w-6" />,
     component: <MainDashboard />,
+  },
+  {
+    name: "Menú",
+    layout: "/admin",
+    path: "default/menu/:id",
+    icon: <MdHome className="h-6 w-6" />,
+    component: <MenuView />,
+    sidebarUnlisted: true
   },
   {
     name: "Pedidos",
