@@ -9,7 +9,8 @@ const env = {
     },
     GOOGLE_OAUTH_CONFIG:{
         clientId: "1014147833890-0428rcbr9oq26tbugk7tufu2brhnrlbe.apps.googleusercontent.com"
-    } 
+    }, 
+    BASE_URL: "http://localhost:5000",
 }
 
 export default env;

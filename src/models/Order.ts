@@ -1,3 +1,5 @@
+import { Coordinates } from "./Cordinates";
+
 export interface Order{
 
     id?:number;

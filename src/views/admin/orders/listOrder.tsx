@@ -5,6 +5,7 @@ import { orderService } from "services/orderService";
 import Swal from "sweetalert2";
 import { Order } from "models/Order";
 import { useNavigate } from "react-router-dom";
+import { MdMap } from "react-icons/md";
 
 const ListOrders = () => {
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ const ListOrders = () => {
 
   };
 
-  const handleCreation = () =>{
+  const handleCreation = () => {
     navigate("create")
   }
 
@@ -32,6 +33,10 @@ const ListOrders = () => {
     console.log(`Editar pedido con ID: ${order_id}`);
     navigate(`/admin/orders/update/${order_id}`)
   };
+
+  const trackOrder = (order_id: number) => {
+    navigate(`/admin/orders/track/${order_id}`)
+  }
 
   const handleDelete = async (order_id: number) => {
     console.log(`Intentando eliminar usuario con ID: ${order_id}`);
@@ -90,7 +95,7 @@ const ListOrders = () => {
                       <td className="px-6 py-4 font-medium text-gray-900 dark:text-white">{item.id}</td>
                       <td className="px-6 py-4 font-medium text-gray-900 dark:text-white">{item.menu_id}</td>
                       <td className="px-6 py-4">{item.motorcycle_id}</td>
-                      <td className="px-6 py-4">{item.customer_id }</td>
+                      <td className="px-6 py-4">{item.customer_id}</td>
                       <td className="px-6 py-4">{item.quantity}</td>
                       <td className="px-6 py-4">{item.total_price}</td>
                       <td className="px-6 py-4">{item.status}</td>
@@ -112,6 +117,12 @@ const ListOrders = () => {
                           className="text-red-600 dark:text-red-500"
                         >
                           <Trash2 size={20} /> {/* Ícono de eliminar */}
+                        </button>
+                        <button
+                          onClick={() => item.id !== undefined && trackOrder(item.id)}
+                          className="text-red-600 dark:text-red-500"
+                        >
+                          <MdMap size={20} /> {/* Ícono de rastrear */}
                         </button>
                       </td>
                     </tr>

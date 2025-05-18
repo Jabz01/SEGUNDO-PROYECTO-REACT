@@ -60,6 +60,7 @@ import ListPhotos from "views/admin/photo/listPhoto";
 import CustomersList from "views/admin/customers/CustomerList";
 import CustomerForm from "views/admin/customers/CustomerForm";
 import CustomerEdit from "views/admin/customers/CustomerEdit";
+import TrackingView from "views/admin/map/orderTracking";
 
 
 
@@ -86,12 +87,22 @@ const routes = [
     component: <App />,
     sidebarUnlisted: true
   },
+
   {
     name: "Editar pedidos",
     layout: "/admin",
     path: "orders/update/:id",
     icon: <MdHome className="h-6 w-6" />,
     component: <UpdateOrder />,
+    sidebarUnlisted: true
+  },
+
+  {
+    name: "Rastrear pediod",
+    layout: "/admin",
+    path: "orders/track/:id",
+    icon: <MdHome className="h-6 w-6" />,
+    component: <TrackingView />,
     sidebarUnlisted: true
   },
 
@@ -282,7 +293,7 @@ const routes = [
     path: "customers/new",
     icon: <MdAddBusiness className="h-6 w-6" />,
     component: <CustomerForm />,
-    sidebarUnlisted: true, 
+    sidebarUnlisted: true,
   },
   {
     name: "Editar Cliente",
@@ -290,7 +301,7 @@ const routes = [
     path: "customers/edit/:id",
     icon: <MdEdit className="h-6 w-6" />,
     component: <CustomerEdit />,
-    sidebarUnlisted: true, 
+    sidebarUnlisted: true,
   },
 
 
