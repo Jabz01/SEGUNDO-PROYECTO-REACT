@@ -6,7 +6,7 @@ import { Product } from "models/Product.js";
 const LOCAL_CART_KEY = "gaster_blaster_cart";
 
 interface CartContextType {
-    products: Product[];
+    products: any[];
     addProduct: (product: any) => void;
     deleteProduct: (id: number) => void;
 }
@@ -21,7 +21,7 @@ const defaultCartContext: CartContextType = {
 export const CartContext = createContext<CartContextType>(defaultCartContext);
 
 export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [products, setProducts] = useState<Product[] | null>([]);
+  let [products, setProducts] = useState([]);
 
   // Verificar si hay una sesión existente al cargar
   useEffect(() => {
@@ -30,7 +30,11 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   const addProduct = (product: any) =>
   {
-    setProducts([...products, window.structuredClone(product)]);
+    products = [...window.structuredClone(products), window.structuredClone(product)]
+    setProducts(products);
+
+    console.log(products);
+    
 
     localStorage.setItem(LOCAL_CART_KEY, JSON.stringify(products));
   }

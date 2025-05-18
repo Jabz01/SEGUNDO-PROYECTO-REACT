@@ -60,6 +60,7 @@ import ListPhotos from "views/admin/photo/listPhoto";
 import CustomersList from "views/admin/customers/CustomerList";
 import CustomerForm from "views/admin/customers/CustomerForm";
 import CustomerEdit from "views/admin/customers/CustomerEdit";
+import MenuView from "views/admin/default/menu";
 import TrackingView from "views/admin/map/orderTracking";
 
 
@@ -71,6 +72,14 @@ const routes = [
     path: "default",
     icon: <MdHome className="h-6 w-6" />,
     component: <MainDashboard />,
+  },
+  {
+    name: "Menú",
+    layout: "/admin",
+    path: "default/menu/:id",
+    icon: <MdHome className="h-6 w-6" />,
+    component: <MenuView />,
+    sidebarUnlisted: true
   },
   {
     name: "Pedidos",
@@ -210,7 +219,7 @@ const routes = [
   },
 
   {
-    name: "Drivers",
+    name: "Conductores",
     layout: "/admin",
     path: "drivers",
     icon: <MdDirectionsBike className="h-6 w-6" />,
@@ -243,11 +252,13 @@ const routes = [
   },
 
   {
-    name: "Profile",
+    name: "Perfil",
     layout: "/admin",
     path: "profile",
     icon: <MdPerson className="h-6 w-6" />,
     component: <Profile />,
+    sidebarUnlisted: true
+
   },
   {
     name: "Sign In",
@@ -288,7 +299,7 @@ const routes = [
     component: <CustomersList />,
   },
   {
-    name: "Agregar Cliente",
+    name: "Create Customer",
     layout: "/admin",
     path: "customers/new",
     icon: <MdAddBusiness className="h-6 w-6" />,
@@ -296,7 +307,7 @@ const routes = [
     sidebarUnlisted: true,
   },
   {
-    name: "Editar Cliente",
+    name: "Edit Customer",
     layout: "/admin",
     path: "customers/edit/:id",
     icon: <MdEdit className="h-6 w-6" />,
