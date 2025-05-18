@@ -27,7 +27,9 @@ import {
   MdEmergencyRecording,
   MdEmergency,
   MdDirections,
-  MdPhoto
+  MdPhoto,
+  MdGraphicEq,
+  MdInfo
 } from "react-icons/md";
 
 import Products from "views/admin/products/listProducts";
@@ -62,7 +64,7 @@ import CustomerForm from "views/admin/customers/CustomerForm";
 import CustomerEdit from "views/admin/customers/CustomerEdit";
 import MenuView from "views/admin/default/menu";
 import TrackingView from "views/admin/map/orderTracking";
-
+import PieCharts from "views/admin/graphics/pieCharts";
 
 
 const routes = [
@@ -313,6 +315,14 @@ const routes = [
     icon: <MdEdit className="h-6 w-6" />,
     component: <CustomerEdit />,
     sidebarUnlisted: true,
+  },
+
+  {
+    name: "Ver graficos",
+    layout: "/admin",
+    path: "graphics",
+    icon: <MdInfo className="h-6 w-6" />,
+    component: <PieCharts />,
   },
 
 
