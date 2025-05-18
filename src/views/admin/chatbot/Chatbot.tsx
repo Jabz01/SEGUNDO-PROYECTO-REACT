@@ -4,7 +4,7 @@ import { FaRobot, FaTimes } from "react-icons/fa";
 
 const Chatbot = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState([{ text: '¡Hola! soy el chatBot "autoGaster", estoy aqui para ayudarte para movilizarte en este laberinto de pagina y ayudarte para hacer pedido o agregar cosas', type: "bot" }]);
+  const [messages, setMessages] = useState([{ text: '¡Hola! soy el chatBot "autoGaster", estoy aqui para ayudarte a movilizarte en este laberinto de pagina y darte soporte, hacer pedidos o agregar modelos como nuevos usuarios, restaurantes, etc..., Pregunta lo que necesites', type: "bot" }]);
   const [input, setInput] = useState("");
 
   const handleSendMessage = async () => {
