@@ -8,12 +8,16 @@ import { FiSearch } from "react-icons/fi";
 import { RiMoonFill, RiSunFill } from "react-icons/ri";
 import { IoMdNotificationsOutline, IoMdInformationCircleOutline } from "react-icons/io";
 import { useAuth } from "context/AuthProvider";
+import { useNotification } from "context/notificationProvider";
 
 const Navbar = (props: { onOpenSidenav: () => void; brandText: string; secondary?: boolean | string; }) => {
   const { onOpenSidenav, brandText } = props;
   const [darkmode, setDarkmode] = React.useState(false);
   const { logout } = useAuth();
   const navigate = useNavigate();
+
+  const { notifications, deleteNotification } = useNotification();
+
   // Estado para manejar la imagen del usuario
   const [user, setUserData] = useState(JSON.parse(localStorage.getItem("user") || "{}"));
 
@@ -79,7 +83,7 @@ const Navbar = (props: { onOpenSidenav: () => void; brandText: string; secondary
         <Dropdown
           button={
             <p className="cursor-pointer">
-              <IoMdNotificationsOutline className="h-4 w-4 text-gray-600 dark:text-white" />
+              <IoMdNotificationsOutline className={+ notifications.length ? "h-4 w-4 text-red-600 dark:text-red-600" : "h-4 w-4 text-gray-600 dark:text-white"} />
             </p>
           }
           animation="origin-[65%_0%] md:origin-top-right transition-all duration-300 ease-in-out"
@@ -89,38 +93,25 @@ const Navbar = (props: { onOpenSidenav: () => void; brandText: string; secondary
                 <p className="text-base font-bold text-navy-700 dark:text-white">
                   Notification
                 </p>
-                <p className="text-sm font-bold text-navy-700 dark:text-white">
-                  Mark all read
-                </p>
               </div>
 
-              <button className="flex w-full items-center">
+              {notifications.map( e => (
+                
+              <button key={e.id} onClick={() => deleteNotification(e.id)} className="flex w-full items-center">
                 <div className="flex h-full w-[85px] items-center justify-center rounded-xl bg-gradient-to-b from-brandLinear to-brand-500 py-4 text-2xl text-white">
                   <BsArrowBarUp />
                 </div>
                 <div className="ml-2 flex h-full w-full flex-col justify-center rounded-lg px-1 text-sm">
                   <p className="mb-1 text-left text-base font-bold text-gray-900 dark:text-white">
-                    New Update: Horizon UI Dashboard PRO
+                    {e.title}
                   </p>
                   <p className="font-base text-left text-xs text-gray-900 dark:text-white">
-                    A new update for your downloaded item is available!
+                    {e.description}
                   </p>
                 </div>
               </button>
+              ))}
 
-              <button className="flex w-full items-center">
-                <div className="flex h-full w-[85px] items-center justify-center rounded-xl bg-gradient-to-b from-brandLinear to-brand-500 py-4 text-2xl text-white">
-                  <BsArrowBarUp />
-                </div>
-                <div className="ml-2 flex h-full w-full flex-col justify-center rounded-lg px-1 text-sm">
-                  <p className="mb-1 text-left text-base font-bold text-gray-900 dark:text-white">
-                    New Update: Horizon UI Dashboard PRO
-                  </p>
-                  <p className="font-base text-left text-xs text-gray-900 dark:text-white">
-                    A new update for your downloaded item is available!
-                  </p>
-                </div>
-              </button>
             </div>
           }
           classNames={"py-2 top-4 -left-[230px] md:-left-[440px] w-max"}

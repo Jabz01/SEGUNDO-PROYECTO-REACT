@@ -8,6 +8,7 @@ import env from "env/env";
 import { motorcycleService } from "services/motorcycleService";
 
 import 'leaflet/dist/leaflet.css';
+import { useNotification } from "context/notificationProvider";
 
 const API_URL = env.VITE_API_URL + "/orders";
 const BASE_URL = env.BASE_URL;
@@ -18,6 +19,8 @@ const TrackingView: React.FC = () => {
     const [loading, setLoading] = useState(false);
     const [coords, setCoords] = useState<{ lat: number; lng: number }[]>([]);
     const [socket, setSocket] = useState<Socket | null>(null);
+
+    const nots = useNotification();
 
     // Obtener la orden al montar el componente
     useEffect(() => {
@@ -99,7 +102,15 @@ const TrackingView: React.FC = () => {
                 }
             });
 
-            s.on("disconnect", () => console.log("Socket desconectado"));
+            s.on("disconnect", () => {
+                console.log("Socket desconectado")
+
+                nots.addNotification({
+                    id: Date.now(),
+                    title: "Tu pedido ha llegado",
+                    description: "Recoge tu pedido"
+                })
+            });
             s.on("error", (err) => console.error("Error de socket:", err));
 
             setSocket(s);
