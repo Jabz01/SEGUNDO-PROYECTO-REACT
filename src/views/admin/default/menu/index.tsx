@@ -214,7 +214,7 @@ const MenuView = () => {
                             </button>
 
                             <button
-                                className=""
+                                className="hidden"
                                 onClick={() => product.product_id !== undefined && handleAdd(product.product_id, product)}
                             >
                                 <MdAddShoppingCart size={40} /> {/* Ícono de eliminar */}

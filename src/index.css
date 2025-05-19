@@ -27,3 +27,18 @@ input.defaultCheckbox::before {
 input:checked.defaultCheckbox::before { 
 	opacity: 1;
 }
+
+@keyframes arroz {
+	0% {
+		transform: scale(6);
+		background-color: black;
+		border-radius: 50px;
+	}
+	100% {}
+}
+
+.notificacion-rosada {
+	color: red !important;
+	font-weight: bolder !important;
+	animation: arroz 1s linear 0s 1;
+}

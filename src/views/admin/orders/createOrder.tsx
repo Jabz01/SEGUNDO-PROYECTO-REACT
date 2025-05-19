@@ -3,8 +3,11 @@ import { orderService } from 'services/orderService';
 import { useNavigate } from "react-router-dom";
 import OrderFormValidator from 'components/order/orderFormValidation';
 import { Order } from 'models/Order';
+import { useNotification } from 'context/notificationProvider';
 
 const App = () => {
+    const { notifications, addNotification } = useNotification();
+    
     const navigate = useNavigate();
 
     // Lógica de creación
@@ -19,6 +22,12 @@ const App = () => {
                     icon: "success",
                     timer: 3000
                 });
+
+                addNotification({
+                    id: Date.now(),
+                    title: "El pedido ha sido asignado al motociclista",
+                    description: "Por favor lleve el pedido"
+                })
 
                 console.log("Orden creada con éxito:", createdOrder);
                 navigate(`/admin/orders/create/address/${createdOrder[0].id}`);

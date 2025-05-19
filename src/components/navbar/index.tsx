@@ -83,7 +83,7 @@ const Navbar = (props: { onOpenSidenav: () => void; brandText: string; secondary
         <Dropdown
           button={
             <p className="cursor-pointer">
-              <IoMdNotificationsOutline className={+ notifications.length ? "h-4 w-4 text-red-600 dark:text-red-600" : "h-4 w-4 text-gray-600 dark:text-white"} />
+              <IoMdNotificationsOutline className={"h-4 w-4 text-gray-600 dark:text-white" + (notifications.length ? " notificacion-rosada" : "")} />
             </p>
           }
           animation="origin-[65%_0%] md:origin-top-right transition-all duration-300 ease-in-out"
