@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Dropdown from "components/dropdown";
 import { FiAlignJustify } from "react-icons/fi";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import navbarimage from "assets/img/layout/Navbar.png";
 import { BsArrowBarUp } from "react-icons/bs";
 import { FiSearch } from "react-icons/fi";
@@ -13,7 +13,7 @@ const Navbar = (props: { onOpenSidenav: () => void; brandText: string; secondary
   const { onOpenSidenav, brandText } = props;
   const [darkmode, setDarkmode] = React.useState(false);
   const { logout } = useAuth();
-
+  const navigate = useNavigate();
   // Estado para manejar la imagen del usuario
   const [user, setUserData] = useState(JSON.parse(localStorage.getItem("user") || "{}"));
 
@@ -163,9 +163,9 @@ const Navbar = (props: { onOpenSidenav: () => void; brandText: string; secondary
       </div>
       <div className="mt-3 h-px w-full bg-gray-200 dark:bg-white/20 " />
       <div className="mt-3 ml-4 flex flex-col">
-        <a href=" " className="text-sm text-gray-800 dark:text-white hover:dark:text-white">
-          Profile Settings
-        </a>
+        <button onClick={() => navigate("/admin/profile")} className="text-left font-medium text-gray-800 dark:text-white hover:dark:text-white">
+          Ver perfil
+        </button>
         <button
           onClick={logout} 
           className="mt-3 text-sm font-medium text-red-500 hover:text-red-500 text-left"

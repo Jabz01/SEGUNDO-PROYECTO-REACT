@@ -27,7 +27,9 @@ import {
   MdEmergencyRecording,
   MdEmergency,
   MdDirections,
-  MdPhoto
+  MdPhoto,
+  MdAddCircle,
+  MdEventAvailable,
 } from "react-icons/md";
 
 import Products from "views/admin/products/listProducts";
@@ -62,6 +64,11 @@ import CustomerForm from "views/admin/customers/CustomerForm";
 import CustomerEdit from "views/admin/customers/CustomerEdit";
 import MenuView from "views/admin/default/menu";
 import TrackingView from "views/admin/map/orderTracking";
+
+import ShiftList from "views/admin/shifts/ShiftList";
+import ShiftForm from "views/admin/shifts/ShiftForm";
+import ShiftEdit from "views/admin/shifts/ShiftEdit";
+
 
 
 
@@ -314,6 +321,30 @@ const routes = [
     component: <CustomerEdit />,
     sidebarUnlisted: true,
   },
+  {
+    name: "Lista de Turnos",
+    layout: "/admin",
+    path: "shifts",
+    icon: <MdEventAvailable className="h-6 w-6" />,
+    component: <ShiftList />,
+  },
+  {
+    name: "Crear Turno",
+    layout: "/admin",
+    path: "shifts/create",
+    icon: <MdAddCircle className="h-6 w-6" />,
+    component: <ShiftForm />,
+    sidebarUnlisted: true,
+  },
+  {
+    name: "Editar Turno",
+    layout: "/admin",
+    path: "shifts/edit/:id",
+    icon: <MdEdit className="h-6 w-6" />,
+    component: <ShiftEdit />,
+    sidebarUnlisted: true,
+  },
+
 
 
   // {

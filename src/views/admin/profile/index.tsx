@@ -1,8 +1,11 @@
+import { useAuth } from "context/AuthProvider";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const user = JSON.parse(localStorage.getItem("user") || "{}");
-
 const ProfileCard = () => {
+  const { logout } = useAuth();
+  const navigate = useNavigate();
   return (
     <div className="max-w-sm h-[60vh] mx-auto bg-white shadow-md rounded-lg overflow-hidden p-6 dark:bg-gray-800">
       {/* Imagen */}
@@ -23,10 +26,15 @@ const ProfileCard = () => {
 
       {/* Botón en la parte inferior */}
       <div className="mt-6 flex justify-center">
-        <button className="w-1/3 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 lg:text-lg">
+        <button onClick={() => navigate("customers/edit/:id")} className="w-1/3 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 lg:text-lg">
           Editar Perfil
         </button>
-      </div>
+      </div >
+      <div className="mt-6 flex justify-center">
+        <button onClick={logout} className="w-1/3 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 lg:text-lg">
+          Cerrar Sesión
+        </button>
+      </div >
     </div>
   );
 };
