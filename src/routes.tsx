@@ -28,8 +28,9 @@ import {
   MdEmergency,
   MdDirections,
   MdPhoto,
+  MdInfo,
   MdAddCircle,
-  MdEventAvailable,
+  MdEventAvailable
 } from "react-icons/md";
 
 import Products from "views/admin/products/listProducts";
@@ -64,11 +65,10 @@ import CustomerForm from "views/admin/customers/CustomerForm";
 import CustomerEdit from "views/admin/customers/CustomerEdit";
 import MenuView from "views/admin/default/menu";
 import TrackingView from "views/admin/map/orderTracking";
-
-import ShiftList from "views/admin/shifts/ShiftList";
-import ShiftForm from "views/admin/shifts/ShiftForm";
+import PieCharts from "views/admin/graphics/pieCharts";
 import ShiftEdit from "views/admin/shifts/ShiftEdit";
-
+import ShiftForm from "views/admin/shifts/ShiftForm";
+import ShiftList from "views/admin/shifts/ShiftList";
 
 
 
@@ -345,6 +345,14 @@ const routes = [
     sidebarUnlisted: true,
   },
 
+
+  {
+    name: "Ver graficos",
+    layout: "/admin",
+    path: "graphics",
+    icon: <MdInfo className="h-6 w-6" />,
+    component: <PieCharts />,
+  },
 
 
   // {

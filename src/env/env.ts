@@ -11,6 +11,7 @@ const env = {
         clientId: "1014147833890-0428rcbr9oq26tbugk7tufu2brhnrlbe.apps.googleusercontent.com"
     }, 
     BASE_URL: "http://localhost:5000",
+    MOCK_SERVER: "https://ebfa2ade-2745-43a6-bb1f-37ead7207a95.mock.pstmn.io"
 }
 
 export default env;
