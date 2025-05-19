@@ -95,7 +95,7 @@ const CustomerList = () => {
                         {/* Mostrar botón de edición solo si el nombre coincide */}
                         {currentUser.name === customer.name && (
                           <button
-                            onClick={() => navigate(`/admin/customers/edit/${customer.name}`)}
+                            onClick={() => navigate(`/admin/customers/edit/${customer.id}`)}
                             className="text-yellow-600 dark:text-yellow-500"
                           >
                             <Edit size={20} />
