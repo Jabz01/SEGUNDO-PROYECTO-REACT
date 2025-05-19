@@ -25,7 +25,7 @@ const MenuView = () => {
     const [products, setProducts] = useState<Product[]>([]);
 
 
-    const [mariguana, setMariguana] = useState(0);
+    const [piana, setPiana] = useState(0);
 
 
     const { id: restaurant_id } = useParams();
@@ -59,7 +59,7 @@ const MenuView = () => {
 
     useEffect(() => {
         fetchData();
-    }, [mariguana]);
+    }, [piana]);
 
     const handleAdd = async (id: any, product: any) => {
         console.log("adding to cart:", id);
@@ -82,29 +82,29 @@ const MenuView = () => {
 
     const handleDelete = async (menu_id: number) => {
         Swal.fire({
-          title: "Eliminación",
-          text: "Está seguro de querer eliminar el registro?",
-          icon: "warning",
-          showCancelButton: true,
-          confirmButtonColor: "#3085d6",
-          cancelButtonColor: "#d33",
-          confirmButtonText: "Si, eliminar",
-          cancelButtonText: "No"
+            title: "Eliminación",
+            text: "Está seguro de querer eliminar el registro?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Si, eliminar",
+            cancelButtonText: "No"
         }).then(async (result) => {
-          if (result.isConfirmed) {
-            const success = await menuService.deleteMenu(menu_id);
-            if (success) {
-              Swal.fire({
-                title: "Eliminado",
-                text: "El menú se ha eliminado",
-                icon: "success"
-              });
-            }
+            if (result.isConfirmed) {
+                const success = await menuService.deleteMenu(menu_id);
+                if (success) {
+                    Swal.fire({
+                        title: "Eliminado",
+                        text: "El menú se ha eliminado",
+                        icon: "success"
+                    });
+                }
 
-            fetchData();
-          }
+                fetchData();
+            }
         });
-      };
+    };
 
     const handleAddMenu = async () => {
         const inputOptions = products.reduce((options: any, product: any) => {
@@ -129,8 +129,7 @@ const MenuView = () => {
             }
         });
 
-        if (product_id)
-        {
+        if (product_id) {
             menuService.createMenu({
                 restaurant_id,
                 product_id,
@@ -140,7 +139,7 @@ const MenuView = () => {
 
             fetchData();
 
-            setMariguana(mariguana + 1);
+            setPiana(piana + 1);
         }
     }
 
