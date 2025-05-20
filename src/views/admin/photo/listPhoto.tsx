@@ -8,8 +8,7 @@ import { photoService } from "services/photoService";
 
 const ListPhotos = () => {
     const [photos, setPhotos] = useState<Photo[]>([]);
-    const navigate = useNavigate();
-
+    
     useEffect(() => {
         fetchPhotos();
     }, []);
@@ -17,14 +16,6 @@ const ListPhotos = () => {
     const fetchPhotos = async () => {
         const data = await photoService.getPhotos();
         setPhotos(data);
-    };
-
-    const handleView = (id: number) => {
-        navigate(`/admin/photos/view/${id}`);
-    };
-
-    const handleEdit = (id: number) => {
-        navigate(`/admin/photos/update/${id}`);
     };
 
     const handleDelete = async (id: number) => {
@@ -86,12 +77,7 @@ const ListPhotos = () => {
                                                     : "—"}
                                             </td>
                                             <td className="px-6 py-4 space-x-2">
-                                                <button onClick={() => handleView(photo.id!)} className="text-blue-600 dark:text-blue-500">
-                                                    <Eye size={20} />
-                                                </button>
-                                                <button onClick={() => handleEdit(photo.id!)} className="text-yellow-600 dark:text-yellow-500">
-                                                    <Edit size={20} />
-                                                </button>
+
                                                 <button onClick={() => handleDelete(photo.id!)} className="text-red-600 dark:text-red-500">
                                                     <Trash2 size={20} />
                                                 </button>

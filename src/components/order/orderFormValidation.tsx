@@ -97,18 +97,6 @@ const OrderFormValidator: React.FC<OrderFormProps> = ({ mode, handleCreate, hand
                         <ErrorMessage name="quantity" component="p" className="text-red-500 text-sm" />
                     </div>
 
-                    {/* total_price */}
-                    <div>
-                        <label htmlFor="total_price" className="block text-lg font-medium text-gray-700">Total Price</label>
-                        <Field
-                            type="number"
-                            name="total_price"
-                            disabled={isDisabled}
-                            className={`w-full border rounded-md p-2 ${isDisabled ? 'bg-gray-400 text-gray-700 cursor-not-allowed' : ''}`}
-                        />
-                        <ErrorMessage name="total_price" component="p" className="text-red-500 text-sm" />
-                    </div>
-
                     {/* status */}
                     <div>
                         <label htmlFor="status" className="block text-lg font-medium text-gray-700">Status</label>

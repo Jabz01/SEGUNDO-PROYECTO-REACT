@@ -57,7 +57,6 @@ import CreatePhoto from "views/admin/photo/createPhoto";
 import UpdateAddress from "views/admin/address/updateAddress";
 import ViewAddress from "views/admin/address/viewAddres";
 import ListAddress from "views/admin/address/listAddress";
-import PhotoUpdate from "views/admin/photo/updatePhoto";
 import ListPhotos from "views/admin/photo/listPhoto";
 
 import CustomersList from "views/admin/customers/CustomerList";
@@ -197,15 +196,6 @@ const routes = [
     path: "issues/photo/:issue_id",
     icon: <MdHome className="h-6 w-6" />,
     component: <CreatePhoto />,
-    sidebarUnlisted: true
-  },
-
-  {
-    name: "Actualizar evidencia",
-    layout: "/admin",
-    path: "photos/update/:id",
-    icon: <MdHome className="h-6 w-6" />,
-    component: <PhotoUpdate />,
     sidebarUnlisted: true
   },
 

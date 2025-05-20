@@ -57,16 +57,6 @@ class PhotoService {
     }
   }
 
-  async updatePhoto(photoId: number, photo: Partial<Photo>): Promise<Photo | null> {
-    try {
-      const response = await api.put<Photo>(`${API_URL}/${photoId}`, photo);
-      return response.data;
-    } catch (error) {
-      console.error("Error al actualizar la foto:", error);
-      return null;
-    }
-  }
-
   async deletePhoto(id: number): Promise<boolean> {
     try {
       await api.delete(`${API_URL}/${id}`);

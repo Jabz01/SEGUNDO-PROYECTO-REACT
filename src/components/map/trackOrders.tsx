@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Polyline, useMap } from 'react-leaflet';
 import L from 'leaflet';
 
@@ -21,7 +21,6 @@ const ChangeView: React.FC<{ center: Coord; zoom: number }> = ({ center, zoom })
   const map = useMap();
 
   useEffect(() => {
-    console.log("ChangeView: moviendo mapa a", center, "con zoom", zoom);
     map.flyTo([center.lat, center.lng], zoom);
   }, [center.lat, center.lng, zoom, map]);
 
@@ -29,14 +28,18 @@ const ChangeView: React.FC<{ center: Coord; zoom: number }> = ({ center, zoom })
 };
 
 const TrackOrder: React.FC<TrackOrderProps> = ({ coords }) => {
-  console.log("TrackOrder render, coords:", coords);
   const defaultCenter = { lat: 4.7110, lng: -74.0721 };
   const lastCoord = coords.length > 0 ? coords[coords.length - 1] : defaultCenter;
-  const zoomLevel = 16; // Zoom aumentado (antes 13)
+  const zoomLevel = 16;
 
   return (
-    <div style={{ height: '400px', width: '100%' }}>
-      <MapContainer center={[defaultCenter.lat, defaultCenter.lng]} zoom={zoomLevel} scrollWheelZoom style={{ height: '100%', width: '100%' }}>
+    <div className="w-full h-[400px] sm:h-[500px] md:h-[600px] lg:h-[700px] xl:h-[800px]">
+      <MapContainer
+        center={[defaultCenter.lat, defaultCenter.lng]}
+        zoom={zoomLevel}
+        scrollWheelZoom
+        className="w-full h-full rounded-2xl shadow-lg"
+      >
         <ChangeView center={lastCoord} zoom={zoomLevel} />
         <TileLayer
           attribution='&copy; <a href="https://osm.org/copyright">OpenStreetMap</a>'
@@ -45,7 +48,9 @@ const TrackOrder: React.FC<TrackOrderProps> = ({ coords }) => {
         {coords.map((pos) => (
           <Marker key={`${pos.lat}-${pos.lng}`} position={[pos.lat, pos.lng]} icon={icon} />
         ))}
-        {coords.length > 1 && <Polyline positions={coords.map(c => [c.lat, c.lng])} color="blue" />}
+        {coords.length > 1 && (
+          <Polyline positions={coords.map(c => [c.lat, c.lng])} color="blue" />
+        )}
       </MapContainer>
     </div>
   );
